@@ -11,4 +11,15 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+use App\Consultation;
+use Illuminate\Support\Facades\Route;
+
+Route::redirect('/', '/dashboard');
+
+Auth::routes();
+
+Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+
+
+Route::get('/consultations', 'ConsultationsController@list_consultations')->name('consultations');
+//Route::post('/', 'Auth\LoginController@userLogout');
