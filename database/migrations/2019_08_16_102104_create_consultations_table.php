@@ -20,7 +20,7 @@ class CreateConsultationsTable extends Migration
             $table->text('antecedents')->nullable();
             $table->longText('bilan')->nullable();
             $table->text('conseils')->nullable();
-            $table->unsignedBigInteger('id_animal')->default('0');
+            $table->unsignedBigInteger('animal_id')->default('0');
             $table->timestamps();
         });
     }

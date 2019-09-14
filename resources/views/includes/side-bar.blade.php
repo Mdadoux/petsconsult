@@ -37,13 +37,23 @@
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-1 collapse-inner rounded">
               {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-              <a class="collapse-item" href="{{route('consultations')}}">Tous</a>
+              <a class="collapse-item" href="{{url('consultations')}}">Tous</a>
               <a class="collapse-item" href="">
                 <i class="fas fa-plus mr-1"></i>Nouvelle consultaion
               </a>
             </div>
           </div>
         </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{url('patients')}}">
+              <i class="fas fa-fw fa-plus"></i>
+              <span>Patients</span>
+            </a>
+           
+          </li>
+  
+
+        
   
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">

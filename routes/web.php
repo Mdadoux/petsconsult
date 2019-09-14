@@ -21,5 +21,7 @@ Auth::routes();
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
 
-Route::get('/consultations', 'ConsultationsController@list_consultations')->name('consultations');
+Route::resource('/consultations', 'ConsultationsController');
+Route::resource('/patients', 'AnimalsController');
+//Route::get('/consultations/{id}', 'ConsultationsController@list_consultations');
 //Route::post('/', 'Auth\LoginController@userLogout');
