@@ -12,9 +12,9 @@
         <div class="ml-auto w-25 text-right mb-3">
 
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-            data-toggle="modal" data-target="#addModal">
+            data-toggle="modal" data-target="#add-Modal">
                 <i class="fas fa-plus fa-sm text-white"></i>
-                 Nouvau patient
+                 <span>Nouvau patient</span>
             </a>
         </div>
 
@@ -83,10 +83,10 @@
                                   <a href="patients/{{$patient->id}}" class="btn btn-default btn-circle btn-sm">
                                           <i class="fas fa-eye"></i>
                                   </a>
-                                  <a href="#" class="btn btn-danger btn-circle btn-sm delete-btn" data-titre="{{$patient->nom}}" data-delete="{{$patient->id}}" data-toggle="modal" data-target="#delete-modal">
+                                  <a href="#" class="btn btn-danger btn-circle btn-sm delete-btn" data-titre="{{$patient->nom}}" id="{{$patient->id}}" data-toggle="modal" data-target="#delete-modal">
                                           <i class="fas fa-trash"></i>
                                   </a>
-                                  <a href="#" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#addModal">
+                                  <a href="#" class="btn btn-primary btn-circle btn-sm patient-edit" data-toggle="modal" data-idpatient="{{$patient->id}}" data-target="#add-Modal">
                                           <i class="fas fa-edit"></i>
                                   </a>
       
@@ -100,10 +100,6 @@
                   </div>
                 </div>
               </div>
-
-
-
 </div>
-
 @include('pages.patients.modal-patient-add')
 @endsection

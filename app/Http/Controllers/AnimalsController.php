@@ -50,7 +50,7 @@ class AnimalsController extends Controller
     {
         //
         $rules =  [
-            'nom'     => 'string',
+            'nom'     => 'string|required',
             'sexe'    => 'string',
             'age'     => 'string',
             'race'    => 'string',
@@ -60,7 +60,6 @@ class AnimalsController extends Controller
 
         // dd($request->all());
         $this->validate($request, $rules);
-
         // creation du patient animal
         $patient = new Animal;
         $patient->nom = $request->input('nom');
@@ -68,11 +67,9 @@ class AnimalsController extends Controller
         $patient->age = $request->input('animal-age');
         $patient->animal_types_id = $request->input('animal-type');
         $patient->proprietaire_id = $request->input('animal-proprietaire');
-        $patient->race = $request->input('race');
+        $patient->race = $request->input('animal-race');
         $patient->discipline = $request->input('animal-discipline');
         $patient->save();
-
-
         return redirect('/patients')->with('success', 'Le patient ' . $patient->nom . ' a été ajouté dans la liste des patients');
     }
 
@@ -84,7 +81,7 @@ class AnimalsController extends Controller
      */
     public function show($id)
     {
-        //
+        //afficher le details d'un patien (animal)
         $patient = Animal::with(['proprietaire', 'animal_type'])->find($id);
         return view('pages.patients.patient-single', [
             "patient" => $patient
@@ -100,6 +97,8 @@ class AnimalsController extends Controller
     public function edit($id)
     {
         //
+        $patient = Animal::with(['proprietaire', 'animal_type'])->find($id);
+        return $patient;
     }
 
     /**
@@ -109,9 +108,23 @@ class AnimalsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        $patient = Animal::findOrFail($request->input('animal-id'));
+        $patient->nom = $request->input('nom');
+        $patient->sexe = $request->input('animal-sexe');
+        $patient->age = $request->input('animal-age');
+        $patient->animal_types_id = $request->input('animal-type');
+        $patient->proprietaire_id = $request->input('animal-proprietaire');
+        $patient->race = $request->input('race');
+        $patient->discipline = $request->input('animal-discipline');
+
+        //dd($request->input('animal-id'));
+        //dd(date(now()));
+        $patient->update($request->all());
+
+        return back()->with('success', 'Les informations du patient ' . $patient->nom . ' ont été mise à jour');
     }
 
     /**
@@ -122,12 +135,10 @@ class AnimalsController extends Controller
      */
     public function destroy(Request $request)
     {
-        $id_patient = $request->patient_id;
+        $id_patient = $request->input('element-a-suppr-id');
         //d'abbord selectionner lelement parmi les patients
-
         $patient = Animal::findOrFail($id_patient);
         $patient->delete();
-
         return redirect('/patients')->with('success', 'Le patient ' . $patient->nom . ' a été supprimé de la liste des patients');
     }
 }

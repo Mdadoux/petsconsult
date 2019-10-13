@@ -1,6 +1,9 @@
 <form action="{{route('patients.store')}}" method="POST">
+  
     @csrf
-<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      {{--  le'url de modification de formulaire si pour une modification' --}}
+        <input type="hidden" value="{{route('patients.update','test')}}" name="form-update-action" id="form-update-action">
         <li class="nav-item">
           <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Infos</a>
         </li>
@@ -11,8 +14,10 @@
           <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
         </li>
       </ul>
+      
       <div class="tab-content" id="myTabContent">        
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              <input type="hidden" id="animal-id" value="" name="animal-id">
                 <div class="tab-content-inner py-4">
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
@@ -32,7 +37,7 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label  for="race">Sexe</label>
-                        <select class="form-control" id="animal-sexe" name="animal-sexe" required>
+                        <select class="form-control" id="animal-sexe" name="animal-sexe">
                             <option>Selectionner</option>
                             <option>Mâl</option>
                             <option>Femelle</option>
@@ -40,19 +45,23 @@
                     </div>
                 </div>
                   <div class="form-row">
-                      <div class="col-md-4 mb-3">
+                      <div class="col-md-3 mb-3">
                           <label for="discipline">Discipline</label>                  
                             <input type="text" class="form-control" id="discipline" name="animal-discipline" placeholder="Discipline">
                         </div>
                      
-                      <div class="col-md-4 mb-3">
+                      <div class="col-md-2 mb-3">
                           <label  for="race">Age</label>
-                          <input type="number" min="0" class="form-control" id="age" name="annimal-age" placeholder="0">
+                          <input type="number" min="0" class="form-control" id="age" name="animal-age" placeholder="0">
                       </div>
+                      <div class="col-md-3 mb-3">
+                        <label  for="race">Race</label>
+                        <input type="text" class="form-control" id="animal-race" name="animal-race" placeholder="Race">
+                    </div>
                       <div class="col-md-4 mb-3">
                           <label  for="race">Propriétaire</label>
                           <select class="form-control" id="proprietaire" name="animal-proprietaire">
-                              <option>Selectionner</option>
+                              <option value="0">Selectionner</option>
                               @if(!empty($proprietaires))
                                 @foreach($proprietaires as $proprietaire)                             
                                   <option value="{{$proprietaire->id}}">{{$proprietaire->nom}} - {{$proprietaire->prenom}}</option>                                 

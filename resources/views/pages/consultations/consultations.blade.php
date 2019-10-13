@@ -11,7 +11,9 @@
 
         <div class="ml-auto w-25 text-right mb-3">
 
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white"></i> Nouvelle consultation</a>
+            <a href="{{route('consultations.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+              <i class="fas fa-plus fa-sm text-white"></i> Nouvelle consultation
+            </a>
         </div>
 
         <!-- DataTales Example -->
@@ -62,13 +64,19 @@
                       <td>{{$consultation->created_at}}</td>
                       <td>
                          <div class="action-wrapper">
-                            <a href="#" class="btn btn-default btn-circle btn-sm">
+                            <a href="{{route('consultations.show', $consultation->id)}}" class="btn btn-default btn-circle btn-sm">
                                     <i class="fas fa-eye"></i>
                             </a>
-                            <a href="#" class="btn btn-danger btn-circle btn-sm">
-                                    <i class="fas fa-trash"></i>
+                            <a href="#" class="btn btn-danger btn-circle btn-sm delete-btn" 
+                              data-titre="{{$consultation->titre}}"
+                              id="{{$consultation->id}}"
+                              data-toggle="modal" 
+                              data-target="#delete-modal"
+                              data-form-route="{{route('consultations.destroy','consultation')}}">
+                                <i class="fas fa-trash"></i>
                             </a>
-                            <a href="#" class="btn btn-primary btn-circle btn-sm">
+                      
+                            <a href="" class="btn btn-primary btn-circle btn-sm">
                                     <i class="fas fa-edit"></i>
                             </a>
 

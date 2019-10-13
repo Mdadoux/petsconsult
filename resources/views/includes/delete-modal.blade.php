@@ -3,7 +3,7 @@
    <form action="{{route('patients.destroy','patient')}}" method="POST">
     @method('DELETE')
     @csrf
-        <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">{{__('Suppression')}}</h5>
@@ -13,8 +13,7 @@
             </div>
             <div class="modal-body">
                 <h6 class="text-center">{{__('Vous voulez vraiment supprimer ')}} <span id="element-titre"></span> de la liste ?</h6>
-                <input type="hidden" id="element-a-suppr" name="patient_id" value="">
-            
+                <input type="hidden" id="element-a-suppr" name="element-a-suppr-id" value="">   
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>

@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title','Consultaion-'.$consultation->titre)
+@section('title','Consultation-'.$consultation->titre)
 
 @section('content')
 
@@ -28,7 +28,7 @@
                     <span class="text">Supprimer</span>
             </a>
     </div>
-
+<a href="{{route('consultations.index')}}">Retour</a>
 </div>
 
 <div class="row">

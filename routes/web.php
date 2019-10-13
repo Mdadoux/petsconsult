@@ -20,6 +20,8 @@ Auth::routes();
 
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
+Route::get('/consultations/search', 'ConsultationsController@searchAnimal')->name('search');
+
 
 Route::resource('/consultations', 'ConsultationsController');
 Route::resource('/patients', 'AnimalsController');
