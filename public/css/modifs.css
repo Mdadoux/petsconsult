@@ -18,7 +18,7 @@
 }
 
 /* afficher et cacher le formulaire du patient */
-.spin-input-container{
+.spin-input-container {
     position: relative;
 }
 
@@ -34,5 +34,5 @@
 }
 
 .show-patient-form .patient-row-form-wrapper {
-    display: block
+    display: block;
 }

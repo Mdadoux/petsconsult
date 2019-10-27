@@ -9,11 +9,11 @@
         <h1 class="h3 mb-2 text-gray-800">{{__('Nouvelle consultation')}}</h1>
         <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
 
-        <div class="ml-auto w-25 text-right mb-3">
+        <div class="ml-auto w-25 text-right mb-3">{{--             
             <a href="" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
               <i class="fas fa-plus fa-sm text-white"></i>
               <span>Nouveau patient ?</span> 
-            </a>
+            </a> --}}
         </div>
 </div>
 <div class="consultation-container" style="width:80%;">
@@ -158,7 +158,8 @@
         <div class="tab-pane fade" id="consultation-bilan" role="tabpanel" aria-labelledby="consultation-bilan-tab">
                 <h2>Bilan</h2>
                 <label for="consultation-conseils">Bilan de consultation</label>
-                <textarea class="form-control" id="consultation-bilan" name="consultation-bilan" style="display:none" ></textarea>
+                @include('pages/consultations/consultation-bilan')
+               
         </div>
     </div>
     

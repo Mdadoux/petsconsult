@@ -11,7 +11,10 @@
 
 {{-- <script src="{{asset('js/plugins/chart.js/Chart.min.js')}}"></script> --}}
 <!-- Page level custom scripts -->
+<script src="{{asset('js/plugins/jQImageMarker/jQUi.js')}}"></script>
+<script src="{{asset('js/plugins/jQImageMarker/jquery.image-marker.js')}}"></script>
 <script src="{{asset('js/plugins/sb-admin-2.min.js')}}"></script>
+<script src="{{asset('js/main-apps.js')}}"></script>
 
 {{--
 

@@ -37,8 +37,7 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label  for="race">Sexe</label>
-                        <select class="form-control" id="animal-sexe" name="animal-sexe">
-                            <option>Selectionner</option>
+                        <select class="form-control" id="animal-sexe" name="animal-sexe">                           
                             <option>Mâl</option>
                             <option>Femelle</option>
                            </select>

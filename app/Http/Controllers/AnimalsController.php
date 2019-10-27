@@ -82,7 +82,7 @@ class AnimalsController extends Controller
     public function show($id)
     {
         //afficher le details d'un patien (animal)
-        $patient = Animal::with(['proprietaire', 'animal_type'])->find($id);
+        $patient = Animal::with(['proprietaire', 'animal_type', 'consultations'])->find($id);
         return view('pages.patients.patient-single', [
             "patient" => $patient
         ]);
@@ -116,6 +116,7 @@ class AnimalsController extends Controller
         $patient->sexe = $request->input('animal-sexe');
         $patient->age = $request->input('animal-age');
         $patient->animal_types_id = $request->input('animal-type');
+        if (is_numeric($patient->animal_types_id) ? $patient->animal_types_id : $patient->animal_types_id = 0);
         $patient->proprietaire_id = $request->input('animal-proprietaire');
         $patient->race = $request->input('race');
         $patient->discipline = $request->input('animal-discipline');

@@ -103,7 +103,7 @@ class ConsultationsController extends Controller
 
             ];
 
-            // dd($request->all());
+            //  dd($request->all());
             $this->validate($request, $rules_patient);
             // creer un nouveau patien dans la table 
             $patient = new Animal;
@@ -163,6 +163,7 @@ class ConsultationsController extends Controller
         return redirect('/consultations')->with('success', 'La consultation n° ' . $id_consultation . ' a été supprimé de la liste des consultations');
     }
 
+    //fonction de recherche patient 
     public function searchAnimal(Request $request)
 
     {

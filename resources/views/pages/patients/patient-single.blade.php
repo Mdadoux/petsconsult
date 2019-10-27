@@ -9,6 +9,7 @@
                 <div class="page-title-subheading">
                      <h3>Patient</h3>                
                     {{$patient->nom}}
+                    <p>Paient n° : <strong> P-00-{{$patient->id}} </strong> </p>
                 </div>
                 <div class="page-btn-action mb-4 w-25 ml-auto text-right">
                     <a href="#" class="btn btn-primary btn-icon-split">
@@ -16,8 +17,7 @@
                                 <i class="fas fa-pen-square"></i>
                         </span>
                         <span class="text">Modifier</span>
-                    </a>
-    
+                    </a>    
                     <a href="#" class="btn btn-danger btn-icon-split delete-btn" data-titre="{{$patient->nom}}" id="{{$patient->id}}" data-toggle="modal" data-target="#delete-modal">
                         <span class="icon text-white-50">
                          <i class="fas fa-trash"></i>
@@ -25,9 +25,7 @@
                         <span class="text">Supprimer</span>
                     </a>
             </div>
-            
         </div>
-        
     
     </div>
 
@@ -46,9 +44,8 @@
                         <div class="profile-contact">
                             <div class="profile-main-top">
                                 <h1 class="name">{{$patient->nom}}</h1>
-                                @if($patient->animal_type['designation'])
-                                <span>{{__('Famille : ')}}</span>
-                                <span>{{$patient->animal_type['designation']}}</span>
+                                @if($patient->animal_type->designation)                                
+                                <span>{{$patient->animal_type->designation}}</span>
                                 @endif                               
                             </div>
                             <div class="speciality">Translator. Event Planner. Writer. Composer. Voice actor.</div>
@@ -120,7 +117,7 @@
                           </ul>
             </div>
     </section>
-    <section class="patient-content card mt-3">
+    <section class="patient-content  mt-3">
         <div class="row">
             <div class="col-sm-8">
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
@@ -134,15 +131,33 @@
                      nemo magnam laborum a voluptatem commodi saepe nobis fuga blanditiis corporis ea id 
                      temporibus hic quis! Aut dolorum nobis veniam repellat dolorem.</p>
             </div>
-           <div class="col-sm-4">
-               <h3>Consultations</h3>
-                <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Morbi leo risus</li>
-                        <li class="list-group-item">Porta ac consectetur ac</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                      </ul
+           <div class="col-sm-4">               
+               <div class="card shadow">
+                   <div class="card-body">
+                       <h5 class="card-title">Consultations</h5>                       
+                       <div class="feed-widget">
+                           <ul class="list-style-none feed-body m-0 pb-0 list-group">
+                             
+                            @if (count($patient->consultations)> 0)
+                                @foreach ($patient->consultations as $consultation)
+                                    <li class="feed-item">
+                                        <div class="feed-icon bg-primary">                                       
+                                            <i class="fas fa-file-medical"></i>
+                                         </div>
+                                        <a href="{{route('consultations.show', $consultation->id)}}" title="Voir détails de la consultation" class="feed-link">
+                                             <span>{{Str::limit($consultation->titre,35)}}</span>
+                                             <span class="ml-auto font-12 text-muted">{{$consultation->created_at->format('d-m-Y')}}</span>     
+                                        </a>
+                                    </li>
+                                @endforeach 
+                            @else
+                                <li class="alert alert-primary feed-item px-2">
+                                    Ce patient n'aucune consultation pour le moment
+                            @endif                                                     
+                            </ul>
+                        </div>
+                    </div>
+                </div>
            </div>
 
     </section>

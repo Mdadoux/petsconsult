@@ -9,7 +9,9 @@
         <link href="{{asset('css/plugins/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
         {{-- styles --}}
         <link rel="stylesheet" href="{{asset('css/sb-admin-2.css')}}">
+        <link rel="stylesheet" href="{{asset('css/app.css')}}">
         <link rel="stylesheet" href="{{asset('css/dataTables.bootstrap4.min.css')}}">
-        <link rel="stylesheet" href="{{asset('css/modifs.css')}}">
+        <link rel="stylesheet" href="{{asset('js/plugins/jQImageMarker/jquery.image-marker.css')}}">
+        <link rel="stylesheet" href="{{asset('js/plugins/jQImageMarker/jQUi.css')}}">
     </head>
     <body id="page-top">

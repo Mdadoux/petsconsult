@@ -9,9 +9,8 @@
         <h1 class="h3 mb-2 text-gray-800">{{__('Toutes les consultations')}}</h1>
         <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
 
-        <div class="ml-auto w-25 text-right mb-3">
-
-            <a href="{{route('consultations.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <div class="ml-auto w-25 text-right mb-3">   
+          <a href="{{route('consultations.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
               <i class="fas fa-plus fa-sm text-white"></i> Nouvelle consultation
             </a>
         </div>
