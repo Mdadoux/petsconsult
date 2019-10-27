@@ -1,0 +1,83 @@
+#input-search-animal {
+    display: block !important;
+}
+
+.search-patient-form>p+div {
+    width: 400px;
+}
+
+.spin-input-group {
+    position: relative;
+}
+
+.spin-input-group>.spinner-border {
+    position: absolute;
+    right: 20px;
+    top: 13px;
+    display: none;
+}
+
+/* afficher et cacher le formulaire du patient */
+.spin-input-container {
+    position: relative;
+}
+
+#animal-search-result {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    background: white;
+}
+
+.patient-row-form-wrapper {
+    display: none;
+}
+
+.show-patient-form .patient-row-form-wrapper {
+    display: block;
+}
+
+
+.feed-widget {
+
+    .feed-item {
+        padding: 12px 0;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+
+        .feed-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 100%;
+            color: #fff;
+
+            i {
+                line-height: 40px;
+            }
+        }
+
+    }
+
+    .feed-link {
+        display: flex;
+        width: 100%;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+}
+
+.widget-patient-profile-card {
+    p {
+        margin-bottom: 0;
+        font-size: 14px;
+    }
+}
