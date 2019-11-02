@@ -173,7 +173,7 @@ class ConsultationsController extends Controller
             $query = DB::table('animals')
                 ->leftjoin('animal_types', 'animal_types_id', '=', 'animal_types.id')
                 ->leftjoin('proprietaires', 'animals.proprietaire_id', '=', 'proprietaires.id')
-                ->select('animals.id', 'animals.nom', 'sexe', 'designation', 'discipline', 'age', 'race', 'proprietaires.nom as prop_nom', 'proprietaires.prenom as prop_prenom', 'proprietaires.id as ownner_id')
+                ->select('animals.id', 'animals.nom', 'sexe', 'designation', 'discipline', 'age', 'race', 'visuel', 'proprietaires.nom as prop_nom', 'proprietaires.prenom as prop_prenom', 'proprietaires.id as ownner_id')
                 ->where('animals.nom', 'LIKE', "%{$name}%")
                 ->orWhere('designation', 'like', "%{$name}%")
                 ->get();

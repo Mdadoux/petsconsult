@@ -28,7 +28,6 @@ $(document).ready(function () {
         const $updateFormAction = $modalContent.find('#form-update-action').val();
         const $methodField = '<input type="hidden" name="_method" value="patch">';
         // console.log($elem);
-
         if ($elem.hasClass('patient-edit')) {
             const elem_id = $elem.data('idpatient');
             const $updateForm = $modalContent.find('form');
@@ -62,6 +61,13 @@ $(document).ready(function () {
                         var typePatient = datas.animal_type.designation;
                     }
 
+                    if (datas.visuel === null) {
+                        var patientPhoto = "/imgs/avatar-image.png";
+                    } else {
+                        var patientPhoto = '/storage/uploads/' + datas.visuel;
+                    }
+
+
                     const nomPatient = datas.nom,
                         idPatient = datas.id,
                         sexePatient = datas.sexe,
@@ -84,10 +90,10 @@ $(document).ready(function () {
                         }
                     })
                     // console.log(datas);
-
                     $modalContent.find('#discipline').val(disciplinePatient);
                     $modalContent.find('#animal-race').val(racePatient);
                     $modalContent.find('#age').val(agePatient);
+                    $modalContent.find('#form-modal-preview-image-container img').attr('src', patientPhoto);
                     //seléctionner directement le nom du propirétaire 
                     const $animalProprietaire = $modalContent.find('#proprietaire option');
                     $animalProprietaire.each(function (index, elem) {
@@ -126,7 +132,7 @@ $(document).ready(function () {
     })
 
 
-    // console.log($modalContent.find('form select'));
+    // recherche de patient en ajax
     jQuery('#input-search-animal').on('keyup', function () {
         const terme = $(this).val();
         const $resultcontainer = $('#animal-search-result');
@@ -146,13 +152,19 @@ $(document).ready(function () {
                         data.map((element, i) => {
                             // const element = data[index];
                             data_animal = JSON.stringify(element);
-                            // console.log(data_animal);   
+
+                            if (element.visuel === null) {
+                                var photoPatient = '/imgs/avatar-image.png';
+                            } else {
+                                var photoPatient = '/storage/uploads/' + element.visuel;
+                            }
+                            //  console.log(element.visuel);
                             if ($("#" + element.id).length == 0) {
                                 $resultcontainer.append(`<a class="dropdown-item d-flex align-items-center animal-search-result-item" href="#" 
                 id="${element.id}"
                 data-animal='${data_animal}'>
                 <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+                  <img class="rounded-circle fluid-img" src="${photoPatient}" alt="" width="50">
                   <div class="status-indicator bg-success"></div>
                 </div>
                 <div class="font-weight-bold">
@@ -184,7 +196,7 @@ $(document).ready(function () {
         $('#patient-row').toggleClass('show-patient-form');
 
     });
-    // au click sur un item de la liste,   
+    // au click sur un item de la liste après la recherche de patient,   
     $(document).on('click', '.animal-search-result-item', function (evt) {
         const patient_data = $(this).data('animal');
         const $patient_container_form = $('#patient-row');
@@ -242,8 +254,7 @@ $(document).ready(function () {
     })
 
 
-    // creation gestion du systeme des bilans
-
+    // creation  du systeme des bilans
     var img_src = 'https://images.fineartamerica.com/images-medium-large-5/1-horse-anatomy-samantha-elmhurstscience-photo-library.jpg';
     var imageMarker = $("#element").imageMarker({ src: img_src, drag_disabled: false });
 
@@ -266,22 +277,67 @@ $(document).ready(function () {
         });
     });
 
-    function bind_marker_tofield(tab) {
-        $('#input-consultation-bilan').val(JSON.stringify(tab));
-        //  console.log(tab);
-    }
 
-    $('#bilan-refresh-btn').on('click', function () {
+
+    // le bilan à afficher profivient de la bdd dans le cas d'un visonnage 
+    if ($("#input-consultation-id").length) {
+        var markersBilan = $("#input-consultation-id").val();
+        // console.log('from bdd ', markersBilan);
+
+    } else {
+        // ou depuis le local storage si création 
         var markersBilan = localStorage.getItem('markers');
+        // console.log("from localstorage ", markersBilan);
+
+
+    }
+    // bielan à afficher du local storage
+    $('#bilan-refresh-btn').on('click', function () {
         if (markersBilan) {
             JSON.parse(markersBilan).map(function (marker) {
                 console.log(marker);
                 $(imageMarker).trigger('add_marker', marker);
             });
-
         }
 
     })
+
+    $('input[type="file"]').on('change', (evt) => {
+        previewOpenedFile(evt);
+    })
+
+    // Afficher un apérçu de l'image séléctionné dans un formulaire
+    /** 
+     * @evt correst à l'évenement
+    */
+    function previewOpenedFile(evt) {
+        var input = evt.target;
+        console.log(input.files);
+        var reader = new FileReader();
+        var $previewContainer = $("#form-modal-preview-image-container");
+        reader.onload = () => {
+            $previewContainer.find('img').attr('src', reader.result);
+
+        }
+
+        reader.readAsDataURL(input.files[0]);
+
+        console.log('yes');
+
+    }
+
+
+
+    /**
+     * tab correspond à un tableau de données Json
+     * affiche convertie une liste Json en chaine de charachtere dans la 
+     * valeur d'un input caché 
+     */
+    function bind_marker_tofield(tab) {
+        // un champs cache affin de récuprer les notes du bilan
+        $('#input-consultation-bilan').val(JSON.stringify(tab));
+        //  console.log(tab);
+    }
 
 
 

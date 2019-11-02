@@ -20,6 +20,7 @@ class CreateAnimalsTable extends Migration
             $table->string('race')->nullable();
             $table->string('age')->nullable();
             $table->string('discipline')->nullable();
+            $table->string('visuel')->nullable();
             $table->unsignedBigInteger('proprietaire_id')->default(0);
             $table->unsignedBigInteger('animal_types_id')->default(0);
             //$table->unsignedBigInteger('consultation_id')->default(0);

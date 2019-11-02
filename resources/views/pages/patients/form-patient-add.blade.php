@@ -1,4 +1,4 @@
-<form action="{{route('patients.store')}}" method="POST">
+<form action="{{route('patients.store')}}" method="POST" enctype="multipart/form-data">
   
     @csrf
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -76,15 +76,17 @@
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <div class="tab-content-inner py-4">
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-7">
                   
                 <div class="form-group">
-                    <label for="animal-photo">Photo</label>
-                    <input type="file" class="form-control-file" id="animal-photo" name="animal-photo">
+                    <label class="custom-file-label" for="animal-photo">Ajouter une photo</label>
+                    <input type="file" class="" id="animal-photo" name="animal-photo">
                   </div>
                 </div>
-                <div class="col-sm-6">
-                    <img src="https://images.unsplash.com/photo-1517887121-557af22472e1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="" class="img-fluid">
+                <div class="col-sm-5">
+                  <div id="form-modal-preview-image-container" class="text-center">
+                      <img src="{{asset('imgs/avatar-image.png')}}" alt="" class="img-fluid">                   
+                  </div>
 
                 </div>
               </div>

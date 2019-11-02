@@ -12,7 +12,7 @@
                     <p>Paient n° : <strong> P-00-{{$patient->id}} </strong> </p>
                 </div>
                 <div class="page-btn-action mb-4 w-25 ml-auto text-right">
-                    <a href="#" class="btn btn-primary btn-icon-split">
+                    <a href="#" class="btn btn-primary btn-icon-split patient-edit" data-toggle="modal" data-idpatient="{{$patient->id}}" data-target="#add-Modal">
                         <span class="icon text-white-50">
                                 <i class="fas fa-pen-square"></i>
                         </span>
@@ -36,15 +36,15 @@
                 <div class="col-sm-3">
                         <div class="patient-img-container">
                             <img class="card-img-top img-fluid" 
-                                 src="https://images.unsplash.com/photo-1545791740-adcfb5f1575f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
-                                 alt="Card image cap">                           
+                                 src="@if(!empty($patient->visuel)){{Storage::url('uploads')}}/{{$patient->visuel}}@else {{asset('imgs/avatar-image.png')}} @endif" 
+                                 alt="avatar">                           
                         </div>
                 </div>
                 <div class="col-sm-6">
                         <div class="profile-contact">
                             <div class="profile-main-top">
                                 <h1 class="name">{{$patient->nom}}</h1>
-                                @if($patient->animal_type->designation)                                
+                                @if($patient->animal_type)                                
                                 <span>{{$patient->animal_type->designation}}</span>
                                 @endif                               
                             </div>
@@ -163,5 +163,5 @@
     </section>
 
 
-
+@include('pages.patients.modal-patient-add')
 @endsection

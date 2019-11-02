@@ -6,7 +6,11 @@
         <div class="toolbar_btn btn_grey" id="add_pos_marker">Ajouter une note positve</div>
         <div class="toolbar_btn btn_grey" id="add_neg_marker">Ajouter une note négative</div>
         <div class="toolbar_btn btn_grey" id="save">Sauver le bilan</div>
-        <div class="toolbar_btn btn_grey" id="bilan-refresh-btn">Recuperer un ancien bilan</div>
+        @if (isset($consultation->id) and !empty($consultation->id))
+             <div class="toolbar_btn btn_grey" id="bilan-refresh-btn">Afficher le bilan</div>
+        @else
+             <div class="toolbar_btn btn_grey" id="bilan-refresh-btn">Recuperer un ancien bilan</div>
+        @endif
         </div>
     </div>
     <div id="element"></div>
