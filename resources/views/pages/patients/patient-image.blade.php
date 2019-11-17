@@ -1,0 +1,1 @@
+<img class="card-img-top img-fluid" src="@if(!empty($patient->visuel)){{Storage::url('uploads')}}/{{$patient->visuel}}@else {{asset('imgs/avatar-image.png')}} @endif" alt="avatar">
