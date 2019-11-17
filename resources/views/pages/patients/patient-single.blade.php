@@ -33,14 +33,12 @@
         <div class="container-fluid">
             <div class="panel m-3">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                         <div class="patient-img-container">
-                            <img class="card-img-top img-fluid" 
-                                 src="@if(!empty($patient->visuel)){{Storage::url('uploads')}}/{{$patient->visuel}}@else {{asset('imgs/avatar-image.png')}} @endif" 
-                                 alt="avatar">                           
+                            @include('pages/patients/patient-image')                         
                         </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-7">
                         <div class="profile-contact">
                             <div class="profile-main-top">
                                 <h1 class="name">{{$patient->nom}}</h1>
@@ -52,7 +50,7 @@
 
                             <div class="d-flex flex-column mt-5">
                                 <div class="profile-button-actions my-7">
-                                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" data-idpatient="{{$patient->id}}">
                                             <i class="fas fa-plus fa-sm text-white"></i>
                                             <span>Nouvelle consultation</span> 
                                         </a>

@@ -38,9 +38,10 @@
            <div class="row">
                <div class="col-sm-12">
                    <div class="form-grou my-5">
-                       <label for="consultation-titre">Titre</label>
+                       <label for="consultation-titre">Libelle de la consultation</label>
                        <input type="texte" name="consultation-titre" id="consultation-titre"
                        class="form-control"
+                       value="{{old('consultation-titre')}}"
                        required
                        placeholder="Donner un titre à laconsultation">
                     </div>
@@ -64,11 +65,8 @@
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                     <input type="text"  class="form-control" placeholder="choisir un patient parmis la liste" id="input-search-animal">
-                                </div>
-                                
-                                <div class="dropdown-list dropdown-menu-right shadow animated--grow-in" id="animal-search-result">                                       
-                                                                              
-                                </div>
+                                </div>                                
+                                <div class="dropdown-list dropdown-menu-right shadow animated--grow-in" id="animal-search-result"></div>
                             </div>
                         </div>
 
@@ -104,8 +102,7 @@
                               <div class="col-md-4 mb-3">
                                   <label for="discipline">Discipline</label>                  
                                     <input type="text" class="form-control" id="discipline" name="animal-discipline" placeholder="Discipline">
-                                </div>
-                             
+                                </div>                             
                                 <div class="col-md-2 mb-3">
                                     <label  for="race">Age</label>
                                     <input type="number" min="0" class="form-control" id="age" name="animal-age" placeholder="0">

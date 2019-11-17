@@ -63,34 +63,74 @@
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                        
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis, ea?</p>
-                        
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">                        
+                        <ul class="liste-consultation-details">
+                            <li>
+                                <h5>Consultation réalisé le</h5>
+                                <span>{{$consultation->created_at->format('j M ,Y')}}</span>
+                            </li>       
+                            @if($consultation->motif_consultation)                         
+                            <li>
+                                <h5>Motif de la Consultation </h5>
+                                <span>{{$consultation->motif_consultation}}</span>
+                            </li>
+                            @endif
+                            @if($consultation->antecedents)
+                            <li>
+                                <h5>Antécedents</h5>
+                                <span>{{$consultation->antecedents}}</span>                                
+                            </li>
+                            @endif
+                            @if($consultation->conseils)
+                            <li>Conseils
+                                <span>{{$consultation->conseils}}</span>
+                            </li>
+                            @endif
+                        </ul>                        
                     </div>
-                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-
-                       
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">                       
                         @if($consultation->bilan)
-
                          @include('pages/consultations/consultation-bilan')
-
                             @else
                             <h5 class="mt-3 text-center">Aucun bilan n'a encore été fait</h5>
-                        @endif
-                        
+                        @endif                     
 
                     </div>
-                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <h4>Coordonée</h4>
+
+                        @if(is_object($proprietaire) && !empty($proprietaire))
+                           <p>{{$proprietaire->nom}} {{$proprietaire->prenom}}</p> 
+                            @if($proprietaire->telephone)
+                                <p> Tel : {{$proprietaire->telephone}}</p>
+                            @endif
+                            @if($proprietaire->email)
+                                <p> Email : {{$proprietaire->email}}</p>
+                            @endif
+                            @if($proprietaire->adresse)
+                                    <span>{{$proprietaire->adresse}}</span>
+                            @endif
+                            @if($proprietaire->code_postal)
+                                    <span>{{$proprietaire->code_postal}}</span>
+                            @endif
+                            @if($proprietaire->ville)
+                                    <span>{{$proprietaire->ville}}</span>
+                            @endif
+                            
+                       
+                           @else
+                           <p>{{$proprietaire}}</p>
+                        @endif
+                    </div>
                 </div>
             </div>
             
           </div>     
          
         </div>
-        <div class="col-3">
+        <div class="col-3">          
                 <div class="card shadow widget-patient-profile-card">
-                    <img class="card-img-top" src="https://images.unsplash.com/photo-1545791740-adcfb5f1575f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Card image cap">
+                    @include('pages/patients/patient-image')
                     <div class="card-body">
                             <h5>{{$consultation->animal->nom}}</h5>                               
                         <div class="card-text">                            

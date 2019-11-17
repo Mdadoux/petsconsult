@@ -15,6 +15,7 @@
 <script src="{{asset('js/plugins/jQImageMarker/jquery.image-marker.js')}}"></script>
 <script src="{{asset('js/plugins/sb-admin-2.min.js')}}"></script>
 <script src="{{asset('js/main-apps.js')}}"></script>
+<script src="{{asset('js/functions.js')}}"></script>
 
 {{--
 

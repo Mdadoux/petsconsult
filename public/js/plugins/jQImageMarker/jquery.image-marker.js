@@ -83,7 +83,6 @@
 
     // adding text box
     addTextbox: function (marker) {
-
       // all manipulations with virtual element should be done before insertion regarding to performance issues
       var $text_box = $('<div class="image-marker__text-box"></div>');
       var $dot = $('<div class="image-marker__dot"></div>');
@@ -155,7 +154,6 @@
     },
 
     mountTo: function ($target, $text_box, $dot, $line, onDrag, marker) {
-
       // hidding element, but still displaying for future measurements
       $text_box.css({ visibility: 'hidden' });
       $target.append($text_box);

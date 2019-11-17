@@ -1,6 +1,5 @@
 
 $(document).ready(function () {
-
     //gestion du modal de suppression d'un patien 
     $('#delete-modal').on('show.bs.modal', function (e) {
         const $elem = $(e.relatedTarget);
@@ -108,7 +107,6 @@ $(document).ready(function () {
 
             const $actionBtn = $modalContent.find(".modal-footer button[type='submit']");
             $actionBtn.text('Enregistrer').addClass('btn-update');
-
             // si ce n'est pas édditer in patient 
         } else {
             const $actionBtn = $modalContent.find(".modal-footer button[type='submit']");
@@ -121,12 +119,12 @@ $(document).ready(function () {
             const options = $(this).children();
             options.each(function (index, option) {
                 if (selectedOption === option.value) {
-                    console.log(option);
-                    $(this).prop('selected', true);
+                    $(this).attr('selected', 'selected');
+                    // console.log($(this).val());
                 }
             })
 
-            // console.log(option);
+            //  console.log(option);
         })
 
     })
@@ -161,17 +159,17 @@ $(document).ready(function () {
                             //  console.log(element.visuel);
                             if ($("#" + element.id).length == 0) {
                                 $resultcontainer.append(`<a class="dropdown-item d-flex align-items-center animal-search-result-item" href="#" 
-                id="${element.id}"
-                data-animal='${data_animal}'>
-                <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle fluid-img" src="${photoPatient}" alt="" width="50">
-                  <div class="status-indicator bg-success"></div>
-                </div>
-                <div class="font-weight-bold">
-                  <div class="text-truncate">${element.nom}</div>
-                  <div class="small text-gray-500">${element.sexe} - ${element.designation}</div>
-                </div>
-              </a> `);
+                                id="${element.id}"
+                                data-animal='${data_animal}'>
+                                <div class="dropdown-list-image mr-3">
+                                <img class="rounded-circle fluid-img" src="${photoPatient}" alt="" width="50">
+                                <div class="status-indicator bg-success"></div>
+                                </div>
+                                <div class="font-weight-bold">
+                                <div class="text-truncate">${element.nom}</div>
+                                <div class="small text-gray-500">${element.sexe} - ${element.designation}</div>
+                                </div>
+                            </a> `);
                             }
                         })
                     } else {
@@ -257,8 +255,6 @@ $(document).ready(function () {
     // creation  du systeme des bilans
     var img_src = 'https://images.fineartamerica.com/images-medium-large-5/1-horse-anatomy-samantha-elmhurstscience-photo-library.jpg';
     var imageMarker = $("#element").imageMarker({ src: img_src, drag_disabled: false });
-
-
     $('#add_neg_marker').click(function () {
         $(imageMarker).trigger('add_marker', {
             className: 'yello'
@@ -274,6 +270,7 @@ $(document).ready(function () {
         $(imageMarker).trigger('get_markers', function (data) {
             window.localStorage.markers = JSON.stringify(data);
             bind_marker_tofield(data);
+            alert("Bilan sauvegardé n'oubliez pas d'enregister la consultation");
         });
     });
 
@@ -295,7 +292,6 @@ $(document).ready(function () {
     $('#bilan-refresh-btn').on('click', function () {
         if (markersBilan) {
             JSON.parse(markersBilan).map(function (marker) {
-                console.log(marker);
                 $(imageMarker).trigger('add_marker', marker);
             });
         }
@@ -322,7 +318,7 @@ $(document).ready(function () {
 
         reader.readAsDataURL(input.files[0]);
 
-        console.log('yes');
+        // console.log('yes');
 
     }
 

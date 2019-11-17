@@ -53,7 +53,6 @@ class AnimalsController extends Controller
         $rules =  [
             'nom'     => 'string|required',
             'sexe'    => 'string',
-            'animal_types_id' => 'required',
             'age'     => 'string',
             'race'    => 'string',
             'visuel'  => 'sometimes|image|nullable|max:1999',
@@ -67,7 +66,14 @@ class AnimalsController extends Controller
         $patient->nom = $request->input('nom');
         $patient->sexe = $request->input('animal-sexe');
         $patient->age = $request->input('animal-age');
-        $patient->animal_types_id = $request->input('animal-type');
+        #si on a pas choisi
+        if (!is_numeric($request->input('animal-type'))) {
+            # code...
+            // dd(typeof($request->input('animal-type')));
+            return redirect('/patients')->with('error', "Vous devez choisir un type animal");
+        } else {
+            $patient->animal_types_id = $request->input('animal-type');
+        }
         $patient->proprietaire_id = $request->input('animal-proprietaire');
         $patient->race = $request->input('animal-race');
         $patient->discipline = $request->input('animal-discipline');
@@ -103,8 +109,10 @@ class AnimalsController extends Controller
         //afficher le details d'un patien (animal)
         $patient = Animal::with(['proprietaire', 'animal_type', 'consultations'])->find($id);
         $animal_types = Animal_type::all();
+        $proprietaires = Proprietaire::all();
         return view('pages.patients.patient-single', [
             "patient" => $patient,
+            "proprietaires" => $proprietaires,
             "types_animaux"  => $animal_types
         ]);
     }
@@ -133,10 +141,8 @@ class AnimalsController extends Controller
     {
 
         $patient = Animal::findOrFail($request->input('animal-id'));
-
         // recuperer la photo actuelle du patient
-        $current_photo  = $patient->visuel;
-
+        !is_null($patient->visuel) ? $current_photo = $patient->visuel : $current_photo  = "no-image.jpg";
         $patient->nom = $request->input('nom');
         $patient->sexe = $request->input('animal-sexe');
         $patient->age = $request->input('animal-age');
@@ -146,37 +152,13 @@ class AnimalsController extends Controller
         $patient->proprietaire_id = $request->input('animal-proprietaire');
         $patient->race = $request->input('race');
         $patient->discipline = $request->input('animal-discipline');
+        $patient->updated_at = date(now());
         // dans le cas ou on séléctionne une autre image 
-        if ($request->hasFile('animal-photo')) {
-            $newpatienPhoto = $request->file('animal-photo')->getClientOriginalName();
-            $pathToImage = public_path('storage/uploads/');
-            // les deux images sont différente
-            if ($current_photo && $current_photo !== $newpatienPhoto) {
-                // recuperer les l'extension de l'image actuellement chargée 
-                $extension = $request->file('animal-photo')->getClientOriginalExtension();
-                // renommer l'image selon le nomage suivant
-                $fileNameToStore = 'photo-p-' . $patient->id . '.' . $extension;
-                // mettre à jour le nom de l'image en base 
-                $patient->visuel = $fileNameToStore;
-                # l'image uploadé devient $current_photo...
-                if (file_exists($pathToImage . $current_photo)) {
-                    #faut donc supprimé l'ancien image
-                    unlink($pathToImage . $current_photo);
-                    // enregister l'image dans le bon répertoir
-                    $request->file('animal-photo')->storeAs('public/uploads', $fileNameToStore);
-                    #création d'une image plus petite à partir de l'image par défaut
-                    $photoPatient = Image::make(public_path('storage/uploads/' . $fileNameToStore))->fit(400, 400);
-                    # Sauver la photo 
-                    $photoPatient->save();
-                }
-            }
-
-            //dd($request->input('animal-id'));
-            //dd(date(now()));
-            $patient->update($request->all());
-
-            return back()->with('success', 'Les informations du patient ' . $patient->nom . ' ont été mise à jour');
-        }
+        //  dd($request->file('animal-photo')->getSize());
+        $this->updateAvatarPhoto($request, $patient, $current_photo); // cette partie est légué à cette fonction uploadAvatarPhoto
+        //dd(date(now()));
+        $patient->update($request->all());
+        return redirect()->back()->with('success', 'Les informations du patient ' . $patient->nom . ' ont été mise à jour');
     }
 
     /**
@@ -199,5 +181,48 @@ class AnimalsController extends Controller
         }
         $patient->delete();
         return redirect('/patients')->with('success', 'Le patient ' . $patient->nom . ' a été supprimé de la liste des patients');
+    }
+
+    /**
+     * @param string champ de l'image
+     * @param int $patient un identifiant 
+     * @param string le nom de l'image actuelle 
+     */
+    public function updateAvatarPhoto(Request $request, $patient, $actuellImage)
+    {
+        if ($request->hasFile('animal-photo')) {
+            if ($request->file('animal-photo')->getSize() < 200000) {
+                $newpatienPhoto = $request->file('animal-photo')->getClientOriginalName();
+                $pathToImage = public_path('storage/uploads/');
+                // les deux images sont différente
+                if ($actuellImage && $actuellImage !== $newpatienPhoto) {
+                    // recuperer les l'extension de l'image actuellement chargée 
+                    $extension = $request->file('animal-photo')->getClientOriginalExtension();
+                    // renommer l'image selon le nomage suivant
+                    $fileNameToStore = 'photo-p-' . $patient->id . '.' . $extension;
+                    // mettre à jour le nom de l'image en base 
+                    $patient->visuel = $fileNameToStore;
+                    # l'image uploadé devient $actuellImage...
+                    if (file_exists($pathToImage . $actuellImage)) {
+                        #faut donc supprimé l'ancien image
+                        unlink($pathToImage . $actuellImage);
+                        // enregister l'image dans le bon répertoir
+                        $request->file('animal-photo')->storeAs('public/uploads', $fileNameToStore);
+                        #création d'une image plus petite à partir de l'image par défaut
+                        $photoPatient = Image::make(public_path('storage/uploads/' . $fileNameToStore))->fit(400, 400);
+                        $photoPatient->save();
+                    } else {
+                        $request->file('animal-photo')->storeAs('public/uploads', $fileNameToStore);
+                        #création d'une image plus petite à partir de l'image par défaut
+                        $photoPatient = Image::make(public_path('storage/uploads/' . $fileNameToStore))->fit(400, 400);
+                        $photoPatient->save();
+                    }
+                }
+            } else {
+
+                return back()->with('error', "Taille de l'image trop gros");
+            }
+            //dd($request->file('animal-photo')->getClientOriginalName());
+        }
     }
 }

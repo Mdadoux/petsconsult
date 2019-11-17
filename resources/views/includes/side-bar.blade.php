@@ -67,7 +67,7 @@
               <a class="collapse-item" href="">
                   <i class="fas fa-plus mr-1"></i>Nouveau proprietaire
                 </a>
-                <a class="collapse-item" href="">Tous</a>
+                <a class="collapse-item" href="{{url('proprietaires')}}">Tous</a>
               <a class="collapse-item" href="">Animaux</a>
               <a class="collapse-item" href="">Autres</a>
             </div>

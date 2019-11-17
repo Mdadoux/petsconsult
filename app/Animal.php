@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Animal extends Model
 {
 
-    protected $fillable = ['non', 'sexe', 'race', 'age', 'discipline', 'proprietaire_id', 'animal_types_id'];
+    protected $fillable = ['nom', 'sexe', 'race', 'age', 'discipline', 'proprietaire_id', 'animal_types_id', 'updated_at'];
     /**
      * Get the consultaions for the animal.
      */

@@ -60,7 +60,7 @@
                       </td>
                       <td>{{__('Nom du propriétaire inconnu')}}</td>
                       <td>{{$consultation->animal['nom']}}</td>
-                      <td>{{$consultation->created_at}}</td>
+                      <td>{{$consultation->created_at->format('j F , Y')}}</td>
                       <td>
                          <div class="action-wrapper">
                             <a href="{{route('consultations.show', $consultation->id)}}" class="btn btn-default btn-circle btn-sm">

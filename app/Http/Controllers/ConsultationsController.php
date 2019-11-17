@@ -72,7 +72,7 @@ class ConsultationsController extends Controller
     public function store(Request $request)
     {
 
-        Consultation::create();
+        // Consultation::create();
 
         $rules =  [
             'titre'                 => 'string',
@@ -103,7 +103,6 @@ class ConsultationsController extends Controller
 
             ];
 
-            //  dd($request->all());
             $this->validate($request, $rules_patient);
             // creer un nouveau patien dans la table 
             $patient = new Animal;
@@ -115,9 +114,9 @@ class ConsultationsController extends Controller
             $patient->race = $request->input('animal-race');
             $patient->discipline = $request->input('animal-discipline');
             #enregister le nouveau cheval dans la table animal
-            $patient->save();
+            $patient->save($request->all());
             // dd($patient->id);
-            session()->now('success', 'Nouveau patient ajouté.');
+            //session()->now('success', 'Nouveau patient ajouté.');
             #Puis selectionner l'identifiant du dernier aniaml inseré 
             $consultation->animal_id = $patient->id;
             #affecter l'identifant séléctionné pour l'affecter à au champs animal_id de la consultation
@@ -125,7 +124,6 @@ class ConsultationsController extends Controller
             #avec un champs de recherche, selectioonner l'id de l'animal correspondant à la recherche
             $consultation->animal_id = $request->input('patient-id');
             #recuperer l'id pour l'afftecter au champ animal_id de la consultation
-
         }
         // enregister la consultation
         $consultation->save();
@@ -140,8 +138,15 @@ class ConsultationsController extends Controller
 
         // eager loading thanks to with methode
         $consultation = Consultation::with(['animal'])->find($consultation->id);
+        $id_proprietaire = $consultation->animal->proprietaire_id;
+        if ($id_proprietaire) {
+            # code...
+            $proprietaire = $this->get_proprietaire_byId($id_proprietaire);
+        }
+
         return view('pages.consultations.consultation-single', [
-            "consultation" => $consultation
+            "consultation" => $consultation,
+            "proprietaire" => isset($proprietaire) ? $proprietaire : " "
         ]);
     }
 
@@ -187,6 +192,17 @@ class ConsultationsController extends Controller
         }
     }
 
+
+    public function get_proprietaire_byId($id)
+    {
+        $proprietaire = Proprietaire::find($id);
+
+        if ($proprietaire) {
+            return $proprietaire;
+        } else {
+            return "Aucune coordonée trouvée ";
+        }
+    }
 
     /**
      * 

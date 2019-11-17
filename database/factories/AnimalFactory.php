@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Animal::class, function (Faker $faker) {
     return [
         //
-        'nom' => $faker->name('Bandi' | 'Wisky' | 'Boundty' | 'Happy'),
+        'nom' => $faker->firstName('Bandi' | 'Wisky' | 'Boundty' | 'Happy'),
         'sexe' => 'Mâl',
         'race' => 'Non communiqué',
         'age' => 0,
