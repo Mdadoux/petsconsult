@@ -1,5 +1,5 @@
 
-$(document).ready(function () {
+$(function () {
     //gestion du modal de suppression d'un patien 
     $('#delete-modal').on('show.bs.modal', function (e) {
         const $elem = $(e.relatedTarget);
@@ -127,7 +127,7 @@ $(document).ready(function () {
             //  console.log(option);
         })
 
-    })
+    });
 
 
     // recherche de patient en ajax
@@ -186,10 +186,10 @@ $(document).ready(function () {
             $resultcontainer.empty();
         }
 
-    })
+    });
 
     //cliker sur le bouton ajouter un patien fait afficher le formuliare es6 syntax
-    $('.btn-show-create-patient-form').on('click', (evt) => {
+    $('.btn-show-create-patient-form').on('click', function (evt) {
         evt.preventDefault;
         $('#patient-row').toggleClass('show-patient-form');
 
@@ -249,7 +249,7 @@ $(document).ready(function () {
         })
 
         $('.patient-row-form-wrapper').find('.form-control').attr('readonly', true);
-    })
+    });
 
 
     // creation  du systeme des bilans
@@ -260,12 +260,14 @@ $(document).ready(function () {
             className: 'yello'
         });
     });
+
     $('#add_pos_marker').click(function () {
         $(imageMarker).trigger('add_marker', {
             content: 'Entrez votre commentaire ici.',
             className: 'green'
         });
     });
+
     $('#save').click(function () {
         $(imageMarker).trigger('get_markers', function (data) {
             window.localStorage.markers = JSON.stringify(data);
@@ -275,30 +277,39 @@ $(document).ready(function () {
     });
 
 
-
     // le bilan à afficher profivient de la bdd dans le cas d'un visonnage 
     if ($("#input-consultation-id").length) {
         var markersBilan = $("#input-consultation-id").val();
         // console.log('from bdd ', markersBilan);
-
-    } else {
+    }/*
+    else {
         // ou depuis le local storage si création 
         var markersBilan = localStorage.getItem('markers');
         // console.log("from localstorage ", markersBilan);
-
-
+    }*/
+    if (markersBilan) {
+        JSON.parse(markersBilan).map(function (marker) {
+            $(imageMarker).trigger('add_marker', marker);
+        });
     }
     // bielan à afficher du local storage
     $('#bilan-refresh-btn').on('click', function () {
         if (markersBilan) {
-            JSON.parse(markersBilan).map(function (marker) {
-                $(imageMarker).trigger('add_marker', marker);
-            });
+            // afficher suelement si il n'y a pas déjà des éléments affiché
+            const $items = $(imageMarker).find('.image-marker__text-box');
+            if (!$items.length) {
+                JSON.parse(markersBilan).map(function (marker) {
+                    $(imageMarker).trigger('add_marker', marker);
+                });
+
+            }
         }
 
     })
 
-    $('input[type="file"]').on('change', (evt) => {
+
+
+    $('input[type="file"]').on('change', function (evt) {
         previewOpenedFile(evt);
     })
 

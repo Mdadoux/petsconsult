@@ -8,6 +8,7 @@ use App\Animal_type;
 use App\Consultation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class ConsultationsController extends Controller
 {
@@ -202,6 +203,30 @@ class ConsultationsController extends Controller
         } else {
             return "Aucune coordonée trouvée ";
         }
+    }
+
+    public function showApercu(Consultation $consultation)
+    {
+
+        $consultation = Consultation::with(['animal'])->find($consultation->id);
+        $id_proprietaire = $consultation->animal->proprietaire_id;
+        if ($id_proprietaire) {
+            # code...
+            $proprietaire = $this->get_proprietaire_byId($id_proprietaire);
+        }
+
+        return view('pages.consultations.consultation-viewer', [
+            "consultation" => $consultation,
+            "proprietaire" => isset($proprietaire) ? $proprietaire : " "
+        ]);
+    }
+
+
+    public function exportPdf(Request $pist)
+    {
+
+
+        return dump("Hello ", $pist);
     }
 
     /**

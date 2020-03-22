@@ -10,8 +10,12 @@
         <div class="prop-cta-container">
             <a href="#" class="btn btn-primary">{{('Ecrire')}}</a>     
             <span class="prop-cta-actions"> 
-                <button class="btn" id="btn-delete-prop">Edite</button>
-                <button class="btn">Supp</button>            
+                <button class="btn update-owner-details" data-propid="{{$proprietaire->id}}">Editer</button>
+                <button class="btn" id="propriet_{{$proprietaire->id}}" href="#"
+                    data-titre="{{$proprietaire->nom}} {{$proprietaire->prenom}}"
+                    data-toggle="modal" 
+                    data-target="#delete-modal"
+                    data-form-route="{{route('proprietaires.destroy','proprietaire')}}">Supp</button>            
             </span>       
         </div>
     </div>

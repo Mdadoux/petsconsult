@@ -75,7 +75,7 @@
         </li>
   
         <!-- Divider -->
-        <hr class="sidebar-divider">
+       {{-- <hr class="sidebar-divider">
   
         <!-- Heading -->
         <div class="sidebar-heading">
@@ -88,7 +88,7 @@
             <i class="fas fa-fw fa-folder"></i>
             <span>Pages</span>
           </a>
-          <div id="collapsePages" class="collapse {{--show--}}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Login Screens:</h6>
               <a class="collapse-item" href="login.html">Login</a>
@@ -118,7 +118,7 @@
   
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
-  
+      --}}
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
           <button class="rounded-circle border-0" id="sidebarToggle"></button>

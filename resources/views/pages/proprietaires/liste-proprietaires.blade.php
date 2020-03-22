@@ -23,8 +23,8 @@
                                      <i class="fas fa-ellipsis-h"></i>                                
                                  </button>
                                  <div class="dropdown-menu dropdown-menu-right" id="mydrop">
-                                    <button class="dropdown-item show-owner-details" data-propid="{{$proprietaire->id}}">Détais</button>
-                                    <button class="dropdown-item update-owner-deatils" data-propid="{{$proprietaire->id}}">Modifier</button>
+
+                                    <button class="dropdown-item update-owner-details" data-propid="{{$proprietaire->id}}">Modifier</button>
                                     <a class="dropdown-item"
                                             id="{{$proprietaire->id}}" href="#"
                                             data-titre="{{$proprietaire->nom}} {{$proprietaire->prenom}}"
@@ -42,7 +42,7 @@
                                 <span class="proprietaire-nom">{{$proprietaire->nom}}</span>
                                 <span class="proprietaire-prenom">{{$proprietaire->prenom}}</span>
                             </h5>
-                            <p class="card-text">
+                            <div class="card-content">
                                 <ul>
                                     @if($proprietaire->telephone)
                                     <li>{{$proprietaire->telephone}}</li>
@@ -54,7 +54,8 @@
                                     <li>{{$proprietaire->ville}}</li>
                                     @endif
                                 </ul>
-                            </p>
+                                <button class="show-owner-details btn btn-primary" data-propid="{{$proprietaire->id}}">Détails</button>
+                            </div>
                         </div>
                         <div class="card-footer">
                             <small class="text-muted">{{$proprietaire->created_at}}</small>

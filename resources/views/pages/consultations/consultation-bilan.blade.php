@@ -1,6 +1,9 @@
 <div class="page_content">
 
+    
     <div class="cell">
+
+    @if(Route::current()->getName() !== 'viewer')
     <div class="toolbar">
         <div class="toolbar_left">
         <div class="toolbar_btn btn_grey" id="add_pos_marker">Ajouter une note positve</div>
@@ -13,6 +16,7 @@
         @endif
         </div>
     </div>
+    @endif
     <div id="element"></div>
     </div>
 </div>
