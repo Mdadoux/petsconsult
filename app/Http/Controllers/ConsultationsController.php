@@ -56,8 +56,7 @@ class ConsultationsController extends Controller
 
 
         $consultations_list = Consultation::all();
-        $consultations_list->load('animal');
-        // dd($this->get_animalby_name('ch'));
+        $consultations_list->load('animal');      
         return view('pages.consultations.consultations', [
             "consultations_list" => $consultations_list
         ]);
@@ -142,7 +141,7 @@ class ConsultationsController extends Controller
         $id_proprietaire = $consultation->animal->proprietaire_id;
         if ($id_proprietaire) {
             # code...
-            $proprietaire = $this->get_proprietaire_byId($id_proprietaire);
+            $proprietaire = $this::getProprietaireById($id_proprietaire);
         }
 
         return view('pages.consultations.consultation-single', [
@@ -194,14 +193,14 @@ class ConsultationsController extends Controller
     }
 
 
-    public function get_proprietaire_byId($id)
+    public static function getProprietaireById($id)
     {
         $proprietaire = Proprietaire::find($id);
 
         if ($proprietaire) {
             return $proprietaire;
         } else {
-            return "Aucune coordonée trouvée ";
+            return "Aucun coordonée trouvée ";
         }
     }
 
@@ -212,7 +211,7 @@ class ConsultationsController extends Controller
         $id_proprietaire = $consultation->animal->proprietaire_id;
         if ($id_proprietaire) {
             # code...
-            $proprietaire = $this->get_proprietaire_byId($id_proprietaire);
+            $proprietaire = $this::getProprietaireById($id_proprietaire);
         }
 
         return view('pages.consultations.consultation-viewer', [

@@ -1,19 +1,133 @@
+// geader page 
+header {
+    min-height: 40px;
+
+    // bouton pour ajouter un nouveau proprietaire
+    .add-new-owner {
+        z-index: 3;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        line-height: 28px;
+    }
+}
+
 .prop-btn-details {
     outline: none;
 }
 
 .liste-proprietaires {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 20px;
+
+    //wrapper qui content la liste des proprietaires
     .card-deck {
         justify-content: start;
         align-items: initial;
     }
 
     .card {
-        flex-basis: 15%;
-        margin-bottom: 30px;
-        max-width: 250px;
+        // flex-basis: 15%;
+        // margin-bottom: 30px;
+        //  max-width: 250px;
+
+        .card-header {
+            //padding: 15px 15px 15px 20px;
+            background-color: white;
+        }
+
+        .card-title {
+            font-size: 16px;
+            color: #000;
+            font-weight: 400;
+
+        }
+
+        .card-footer {
+            background: white;
+        }
+
+
+
+        .show-owner-details {
+            color: $blue;
+            display: inline-block;
+            margin: auto auto 10px auto;
+            outline: none;
+            padding: 3px 10px;
+            border-radius: 30px;
+            border: 1px solid transparent;
+            transition: border ease-in-out .3s;
+            font-size: 14px;
+
+            &:hover {
+                border: 1px solid $blue;
+
+            }
+        }
+    }
+
+    .prop-item {
+        box-shadow: 0px 6px 25px 0px rgba(0, 0, 0, 0.07);
+
+        .dropdown-menu.show {
+            box-shadow: 0 0 50px 0 rgba(82, 63, 105, .15);
+        }
+
     }
 }
+
+// liste des coodonées 
+ul.coord-list {
+    list-style: none;
+    margin-left: 0;
+    padding: 0;
+
+    li {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        padding: 5px;
+
+        i {
+            margin-right: 15px;
+        }
+    }
+}
+
+// le badge avec initial du proprietaire
+.prop-initials-container {
+    color: white;
+    background-color: $blue;
+    border: 1px solid #e6e6e6;
+    font-size: .7em;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.proprietaires-pagination-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px 0;
+}
+
+//bouton fermetures de la side bar 
+button.add-prop-action-close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+}
+
 
 
 aside.proprietaire-details-container {
@@ -28,16 +142,31 @@ aside.proprietaire-details-container {
     padding: 30px 30px 40px 30px;
     transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s;
     transform: translateX(150%);
+    z-index: 5;
 
     &.open {
         transform: translateX(0);
     }
 
     .add-prop-title {
-        font-size: 25px;
+        font-size: 16px;
+        color: $blue;
+        margin-bottom: 30px;
     }
 
     .proprietaires-details-inner {
+
+        //les lignes du formulaire
+        .form-row {
+            justify-content: space-between;
+
+            label {
+                display: inline-block;
+                margin-bottom: 10px;
+                font-size: 14px;
+            }
+        }
+
         .spinner-border {
             width: 50px;
             height: 50px;
@@ -46,4 +175,169 @@ aside.proprietaire-details-container {
         }
     }
 
+    button.btn-primary:not(.add-prop-action-close) {
+        position: absolute;
+        bottom: 30px;
+        left: 30px;
+        border-radius: 30px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+}
+
+/*
+La side bare details proprietaire
+------------------------------
+*/
+.prop-details-header-top {
+    display: flex;
+    align-items: center;
+
+    .prop-name-container {
+        margin-left: 10px;
+        color: $black;
+    }
+}
+
+.details-proprietaire-body {
+    .section-head {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+
+        &:after {
+            display: block;
+            content: "";
+            flex-grow: 1;
+            height: 0;
+            border-bottom: 1px solid #dedede;
+        }
+    }
+
+    h5 {
+        color: $blue;
+        font-size: 16px;
+        font-weight: 400;
+        margin-right: 10px;
+
+    }
+
+    ul.animals-list {
+        list-style: none;
+        padding-left: 0;
+
+        >li.animal-item {
+            display: flex;
+            align-items: center;
+            padding: 5px 0;
+            font-size: 14px;
+        }
+
+        .animal-picture {
+            display: block;
+            width: 35px;
+            height: 35px;
+            position: relative;
+            overflow: hidden;
+            margin-right: 15px;
+            background: #ffffff;
+            border-radius: 50%;
+            // box-shadow: 0 0px 0 2px rgb(119, 45, 255);
+
+            >img {
+                display: block;
+                position: absolute;
+                max-width: 100%;
+                top: 0;
+                left: 0;
+            }
+        }
+
+    }
+}
+
+
+
+//  partie editer ou suppr proprietaire
+aside .prop-cta-container {
+
+    position: relative;
+    margin: 30px auto;
+    display: flex;
+    align-items: center;
+
+    a>i,
+    button>i {
+        margin-right: 8px;
+    }
+
+    button:focus,
+    button:active {
+        outline: none;
+    }
+
+    a,
+    button {
+        font-size: 14px;
+        font-weight: 300;
+        padding: 5px 10px;
+        transition: all ease-in-out;
+        border-radius: 3px;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    button.update-owner-details:hover {
+        background-color: rgba(29, 201, 183, .1);
+        color: #1dc9b7;
+    }
+
+    button.delete-owner-details:hover {
+        background-color: rgba(253, 57, 122, .1);
+        color: #fd397a;
+    }
+
+    a {
+        background: #f2f3f7;
+    }
+
+    .prop-cta-actions {
+        margin-left: 10px;
+
+    }
+}
+
+@media (max-width:768px) {
+    .liste-proprietaires {
+
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width:769px) and (max-width:1024px) {
+    .liste-proprietaires {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width:1025px) and (max-width:1200px) {
+    .liste-proprietaires {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width:1201px) and (max-width:1350px) {
+    .liste-proprietaires {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width:1351px) and (max-width:1550px) {
+    .liste-proprietaires {
+        grid-template-columns: repeat(5, 1fr);
+    }
 }

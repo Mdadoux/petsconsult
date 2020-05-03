@@ -1,4 +1,3 @@
-
 $(function () {
     //gestion du modal de suppression d'un patien 
     $('#delete-modal').on('show.bs.modal', function (e) {
@@ -138,7 +137,9 @@ $(function () {
             $.ajax({
                 type: 'GET',
                 url: "search",
-                data: { 'q': terme },
+                data: {
+                    'q': terme
+                },
                 beforeSend: () => {
                     $(".spin-input-group #search-spinner").show();
                 },
@@ -253,8 +254,12 @@ $(function () {
 
 
     // creation  du systeme des bilans
-    var img_src = 'https://images.fineartamerica.com/images-medium-large-5/1-horse-anatomy-samantha-elmhurstscience-photo-library.jpg';
-    var imageMarker = $("#element").imageMarker({ src: img_src, drag_disabled: false });
+    // var img_src = 'https://images.fineartamerica.com/images-medium-large-5/1-horse-anatomy-samantha-elmhurstscience-photo-library.jpg';
+    var img_src = '../imgs/horse-anatomy.jpg';
+    var imageMarker = $("#element").imageMarker({
+        src: img_src,
+        drag_disabled: false
+    });
     $('#add_neg_marker').click(function () {
         $(imageMarker).trigger('add_marker', {
             className: 'yello'
@@ -281,12 +286,13 @@ $(function () {
     if ($("#input-consultation-id").length) {
         var markersBilan = $("#input-consultation-id").val();
         // console.log('from bdd ', markersBilan);
-    }/*
-    else {
-        // ou depuis le local storage si création 
-        var markersBilan = localStorage.getItem('markers');
-        // console.log("from localstorage ", markersBilan);
-    }*/
+    }
+    /*
+        else {
+            // ou depuis le local storage si création 
+            var markersBilan = localStorage.getItem('markers');
+            // console.log("from localstorage ", markersBilan);
+        }*/
     if (markersBilan) {
         JSON.parse(markersBilan).map(function (marker) {
             $(imageMarker).trigger('add_marker', marker);
@@ -316,10 +322,10 @@ $(function () {
     // Afficher un apérçu de l'image séléctionné dans un formulaire
     /** 
      * @evt correst à l'évenement
-    */
+     */
     function previewOpenedFile(evt) {
         var input = evt.target;
-        console.log(input.files);
+        //  console.log(input.files);
         var reader = new FileReader();
         var $previewContainer = $("#form-modal-preview-image-container");
         reader.onload = () => {

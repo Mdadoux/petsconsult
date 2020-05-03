@@ -2,7 +2,13 @@
 $(document).ready(function () {
   $('#dataTable').DataTable(
     {
-      "order": [[0, "desc"]]
+      "order": [[3, "desc"]] // odonner les enregistrement par date croissante
+    }
+  );
+
+  $('#dataTable-patients').DataTable(
+    {
+      "order": [[0, "desc"]] // odonner les enregistrement par date croissante
     }
   );
 

@@ -1,5 +1,5 @@
 <div id="add-prop-contaier">
-        <h2 class="add-prop-title">@if(isset($proprietaireId) && !empty($proprietaireId)) Edition @else Ajouter un propriétaires @endif</h2>   
+        <h2 class="add-prop-title">@if(isset($proprietaireId) && !empty($proprietaireId)) {{__('Modifier les informaions')}} @else Ajouter un propriétaires @endif</h2>   
         
         <form action="@if(isset($proprietaireId) && !empty($proprietaireId)){{route('proprietaires.update',$proprietaireId->id)}}@else {{route('proprietaires.store')}}@endif"  method="post">
             @if(isset($proprietaireId) && !empty($proprietaireId))
@@ -10,7 +10,7 @@
                     <div class="form-group">
                         <label for="input-prop-name">Nom *</label>
                         <input type="text" class="form-control" id="input-prop-nom" name="input-prop-nom" placeholder="Ex:Doe"
-                         value="{{old('input-prop-nom')}} @if(isset($proprietaireId) && !empty($proprietaireId)) {{$proprietaireId->nom}}@endif" required>
+                         value="{{old('input-prop-nom')}} @if(isset($proprietaireId) && !empty($proprietaireId)) {{$proprietaireId->nom}}@endif" required="required">
                     </div>
                     <div class="form-group">
                         <label for="input-prop-prenom">Prénom</label>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="form-group">
                         <label for="input-prop-tel">Télephone *</label>
-                        <input type="tel" class="form-control" name="input-prop-tel" id="input-prop-tel" value="{{old('input-prop-tel')}} @if(isset($proprietaireId) && !empty($proprietaireId)) {{$proprietaireId->telephone}}@endif" placeholder="Un numero" required>
+                        <input type="tel" class="form-control" name="input-prop-tel" id="input-prop-tel" value="{{old('input-prop-tel')}} @if(isset($proprietaireId) && !empty($proprietaireId)) {{$proprietaireId->telephone}}@endif" placeholder="Un numero" required="required">
                     </div>
                 </section>
                 <div class="form-group">
@@ -41,6 +41,6 @@
                         <input type="text" class="form-control" name="input-prop-ville" value="{{old('input-prop-ville')}} @if(isset($proprietaireId) && !empty($proprietaireId)) {{$proprietaireId->ville}}@endif" placeholder="Ville">
                     </div>
                 </section>
-                <button type="submit" class="btn btn-primary">@if(isset($proprietaireId) && !empty($proprietaireId)) Enregister @else Ajouter @endif</button>
+                <button type="submit" class="btn btn-primary btn-sm">@if(isset($proprietaireId) && !empty($proprietaireId)) Enregister @else Ajouter @endif</button>
 </form>
 </div>

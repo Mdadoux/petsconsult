@@ -13,14 +13,20 @@ class ProprietairesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
         //lister les propriétaitres
-        $proprietaires = Proprietaire::with(['animals'])->orderBy('id', 'DESC')->get();
+        $proprietaires = Proprietaire::with(['animals'])->orderBy('id', 'DESC')->paginate(18);
+        $totalProp = $this->get_proprietaire_total();
         // $proprietaires->load('animals');
         return view('pages.proprietaires.liste-proprietaires', [
-            'listeProprietaires' => $proprietaires
+            'listeProprietaires' => $proprietaires,
+            'totalProp' => $totalProp
         ]);
+    }
+
+    public function get_proprietaire_total(){
+        return count(Proprietaire::get());
     }
 
     /**

@@ -1,3 +1,4 @@
+<?php use App\Http\Controllers\ConsultationsController; ?>
 @extends('layouts.template')
 
 @section('title','Dashboard')
@@ -7,7 +8,7 @@
 
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">{{__('Toutes les consultations')}}</h1>
-        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+        <p class="mb-4">{{__("La liste de toute les consultations")}}{{-- <a target="_blank" href="https://datatables.net">official DataTables documentation</a> --}}.</p>
 
         <div class="ml-auto w-25 text-right mb-3">   
           <a href="{{route('consultations.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
@@ -51,14 +52,17 @@
                   </tr>
                 </tfoot>
                 <tbody>
-                  @foreach ($consultations_list as $consultation)                     
-                  
+                  @foreach ($consultations_list as $consultation)   
+                  {{-- Assiger un proprietaire grace à la methoge getProprietaireById() --}}       
+
+                  @php $animalProp=ConsultationsController::getProprietaireById($consultation->animal->proprietaire_id) @endphp
                   <tr>
                       <td>
-                        <a href="consultations/{{$consultation->id}}">
-                        {{$consultation->titre}}</a>
+                        <a href="consultations/{{$consultation->id}}">{{$consultation->titre}}</a>
                       </td>
-                      <td>{{__('Nom du propriétaire inconnu')}}</td>
+                      <td>
+                            @if(!empty($animalProp->nom)) {{$animalProp->nom}} {{$animalProp->prenom}} @else <span class="badge badge-warning">{{__("Non communiqué")}}</span> @endif
+                      </td>
                       <td>{{$consultation->animal['nom']}}</td>
                       <td>{{$consultation->created_at->format('j F , Y')}}</td>
                       <td>
@@ -93,7 +97,7 @@
             
               @else
 
-              <h2>Pas de consultations pour le moment</h2>
+              <h2>{{__("Aucune consultation pour le moment")}}</h2>
 
               @endif
             </div>

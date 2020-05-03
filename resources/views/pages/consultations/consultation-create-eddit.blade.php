@@ -6,8 +6,8 @@
 <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">{{__('Nouvelle consultation')}}</h1>
-        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+        <h1 class="page-title">{{__('Nouvelle consultation')}}</h1>
+        <p class="mb-4">{{__("Remplissez les champs, en tenant compte de bien rensegner les information pour créer la consultations")}}.</p>
 
         <div class="ml-auto w-25 text-right mb-3">{{--             
             <a href="" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
@@ -16,7 +16,7 @@
             </a> --}}
         </div>
 </div>
-<div class="consultation-container" style="width:80%;">
+<div class="consultation-container">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="consultation-resume-tab" data-toggle="tab" href="#consultation-summary" role="tab" aria-controls="home" aria-selected="true">Resume</a>
@@ -37,7 +37,8 @@
            
            <div class="row">
                <div class="col-sm-12">
-                   <div class="form-grou my-5">
+                   <h5 class="patient-section-caption">Iinformations <span class="consultation-label">Commencez par donner un titre à la consultation</span></h5>
+                   <div class="form-group">
                        <label for="consultation-titre">Libelle de la consultation</label>
                        <input type="texte" name="consultation-titre" id="consultation-titre"
                        class="form-control"
@@ -49,10 +50,11 @@
            </div>
            
             <div class="row patient-row" id="patient-row">
-                <div class="col-sm-12">
-                    <h3>Patient</h3><span>Si le patient existe, selectionnez le sur le champs de recherche sinon remplissez le formulaire</span>
-                    <hr>
-
+                <div class="col-sm-12 patien-section">
+                    <div class="patient-section-head">
+                        <h5 class="patient-section-caption">Patient <span class="consultation-label">Remplissez les information du patient</span></h5>
+                        <span>Si le patient existe, selectionnez le sur le champs de recherche, sinon remplissez le formulaire</span>                        
+                    </div>
                     <div class="search-patient-container d-flex align-items-center mb-5">
                          <button type="button" class="btn btn-success btn-show-create-patient-form">
                             Ajouter un nouveau patient     
@@ -127,16 +129,17 @@
                 </div>
             </div>
           
-            <div class="row">
-                <div class="col-sm-12">
-                    <h3>Propriétaire</h3><span>Si le prépiéatire existe, selectionnez le sur le champs de recherche sinon remplissez le formulaire</span>    
-                    <hr>
+            <div class="row patient-row">
+                <div class="col-sm-12 patien-section">
+                    <div class="patient-section-head">
+                        <h5 class="patient-section-caption">Propriétaire <span class="consultation-label">Remplissez les informations sur le proprietaire du patient</span></h5>
+                        <span>Si le patient existe, selectionnez le sur le champs de recherche, sinon remplissez le formulaire</span>                        
+                    </div>
                 </div>    
             </div>
         </div>
         <div class="tab-pane fade" id="consultation-details" role="tabpanel" aria-labelledby="consultation-details-tab">
-            <h2>Détails</h2>
-
+            <h5 class="patient-section-caption">Détails <span class="consultation-label">Les détails de la consultation</span></h5>
             <div class="form-row">
                     <div class="form-group col-md-6">
                       <label for="input-motif-consultation">Motif de la consultation</label>
@@ -153,8 +156,8 @@
             </div>
         </div>
         <div class="tab-pane fade" id="consultation-bilan" role="tabpanel" aria-labelledby="consultation-bilan-tab">
-                <h2>Bilan</h2>
-                <label for="consultation-conseils">Bilan de consultation</label>
+                <h5 class="patient-section-caption">Bilan<span class="consultation-label">Bilan de consultation</span></h5>
+               
                 @include('pages/consultations/consultation-bilan')
                
         </div>
