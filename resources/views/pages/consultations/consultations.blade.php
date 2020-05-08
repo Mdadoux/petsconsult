@@ -1,4 +1,5 @@
-<?php use App\Http\Controllers\ConsultationsController; ?>
+<?php use App\Http\Controllers\ConsultationsController; ?> 
+<!-- /*Importer le controller pour utiliser certainer methide directement */ -->
 @extends('layouts.template')
 
 @section('title','Dashboard')
@@ -79,7 +80,7 @@
                                 <i class="fas fa-trash"></i>
                             </a>
                       
-                            <a href="" class="btn btn-primary btn-circle btn-sm">
+                            <a href="{{route('consultations.edit',$consultation->id)}}" class="btn btn-primary btn-circle btn-sm">
                                     <i class="fas fa-edit"></i>
                             </a>
 

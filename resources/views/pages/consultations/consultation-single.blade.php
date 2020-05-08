@@ -17,7 +17,7 @@
             </div>
     </div>
     <div class="page-btn-action w-50 ml-auto text-right">
-            <a href="#" class="btn btn-primary btn-icon-split"><span class="icon text-white-50"> <i class="fas fa-pen-square"></i> </span>
+            <a href="{{route('consultations.edit',$consultation->id)}}" class="btn btn-primary btn-icon-split"><span class="icon text-white-50"> <i class="fas fa-pen-square"></i> </span>
                 <span class="text">Modifier</span>
             </a>
             <a href="/consultations/viewer/{{$consultation->id}}" class="btn btn-danger btn-icon-split">
@@ -127,8 +127,8 @@
                         <div class="card-text">                            
                             <div class="row">
                                 <div class="col-7">
-                                        @if($consultation->animal->animal_type->designation)                                       
-                                        <span>{{$consultation->animal->animal_type->designation}}</span>
+                                        @if($consultation->animal->animal_type["designation"])                                       
+                                        <span>{{$consultation->animal->animal_type["designation"]}}</span>
                                         @endif  
                                 </div>
                                 <div class="col-5">

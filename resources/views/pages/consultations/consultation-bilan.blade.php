@@ -20,7 +20,7 @@
     <div id="element"></div>
     </div>
 </div>
-{{--Permet, Si on dans une consultation d'un patient de recupèrer le blian via la bdd etl'afficher''--}}
+{{--Permet, Si on est dans une consultation d'un patient de recupèrer le blian via la bdd et l'afficher''--}}
 @if (isset($consultation->id) and !empty($consultation->id))
 
 <input type="hidden" name="input-consultation-id" id="input-consultation-id" value="{{$consultation->bilan}}">

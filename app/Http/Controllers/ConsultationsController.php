@@ -64,6 +64,90 @@ class ConsultationsController extends Controller
 
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $consultation = Consultation::with(['animal'])->find($id);
+        //rechercher les proprietaire
+        $prop = Proprietaire::all();
+        //afficher les types d'animaux
+        $animals_type = Animal_type::all();
+        $isConsultation = !empty($consultation->id) ? true : false;  /*utile pour savoir si on édite ou pas une consulation */      
+       return view('pages.consultations.consultation-create-eddit',[
+        "proprietaires"          => $prop,
+        "types_animaux"          => $animals_type,
+        "consultation"           => $consultation,
+        "isEditConsultation"     => $isConsultation
+       ]);
+    }
+
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+          // Consultation::create();
+
+          $rules =  [
+            'titre'                 => 'string',
+            'motif_consultation'    => 'string',
+            'antecedants'           => 'string',
+            'conseils'              => 'string',
+            'bilan'                 => 'string'
+
+        ];
+
+        //dd($request->all());
+        $this->validate($request, $rules);
+
+        $consultation = Consultation::find($id);
+        $consultation->titre = $request->input('consultation-titre');
+        $consultation->motif_consultation = $request->input('input-motif-consultation');
+        $consultation->antecedents = $request->input('input-antecedent-consultation');
+        $consultation->conseils = $request->input('consultation-conseils');
+        $consultation->bilan = $request->input('input-consultation-id');
+        if (!empty($request->input('patient-id'))) {
+            # si le nom du cheval est renseigné
+            $rules_patient =  [
+                'nom'     => 'string|required',
+                'sexe'    => 'string',
+                'age'     => 'string',
+                'race'    => 'string',
+                'discipline' => 'string'
+
+            ];
+          
+         //   dump($request->input('input-consultation-id'));exit;
+            
+            $this->validate($request, $rules_patient);
+            // mise à jour du patien dans la table 
+            $patient = Animal::find($request->input('patient-id'));           
+            $patient->nom = $request->input('nom');
+            $patient->sexe = $request->input('animal-sexe');
+            $patient->age = $request->input('animal-age');
+            $patient->animal_types_id = $request->input('animal-type');
+            $patient->proprietaire_id = $request->input('animal-proprietaire');
+            $patient->race = $request->input('animal-race');
+            $patient->discipline = $request->input('animal-discipline');
+            #enregister le nouveau cheval dans la table animal
+            $patient->save($request->all());           
+            $consultation->animal_id = $request->input('patient-id');
+            #recuperer l'id pour l'afftecter au champ animal_id de la consultation
+        }
+        // enregister la consultation
+        $consultation->save();
+        return redirect('/consultations')->with('success', 'La consultation n° ' . $consultation->id . ' abien été modifiée !');
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -160,7 +244,6 @@ class ConsultationsController extends Controller
     public function destroy(Request $request)
     {
         $id_consultation = $request->input('element-a-suppr-id');
-
         // dd($id_consultation);
         //d'abbord selectionner lelement parmi les patients
         $consultation = Consultation::findOrFail($id_consultation);

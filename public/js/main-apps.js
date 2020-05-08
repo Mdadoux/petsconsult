@@ -151,6 +151,8 @@ $(function () {
                         data.map((element, i) => {
                             // const element = data[index];
                             data_animal = JSON.stringify(element);
+                            console.log(data_animal);
+
 
                             if (element.visuel === null) {
                                 var photoPatient = '/imgs/avatar-image.png';
@@ -189,7 +191,7 @@ $(function () {
 
     });
 
-    //cliker sur le bouton ajouter un patien fait afficher le formuliare es6 syntax
+    //cliker sur le bouton ajouter un patien fait afficher le formuliare
     $('.btn-show-create-patient-form').on('click', function (evt) {
         evt.preventDefault;
         $('#patient-row').toggleClass('show-patient-form');
@@ -199,7 +201,6 @@ $(function () {
     $(document).on('click', '.animal-search-result-item', function (evt) {
         const patient_data = $(this).data('animal');
         const $patient_container_form = $('#patient-row');
-
         if (patient_data.prop_name === null) {
             var nomprop_patient = "",
                 prenomprop_patient = "",
@@ -219,7 +220,7 @@ $(function () {
         $('#input-search-animal').val($(this).find('.text-truncate').text());
         // et vider la liste
         $('#animal-search-result').empty();
-        $patient_container_form.addClass('show-patient-form');
+        //$patient_container_form.addClass('show-patient-form');
         // les champs de patient rempli avec les données recu 
         $patient_container_form.find('input#nom').val(patient_data.nom);
         $patient_container_form.find('input#discipline').val(patient_data.discipline);
@@ -255,7 +256,10 @@ $(function () {
 
     // creation  du systeme des bilans
     // var img_src = 'https://images.fineartamerica.com/images-medium-large-5/1-horse-anatomy-samantha-elmhurstscience-photo-library.jpg';
-    var img_src = '../imgs/horse-anatomy.jpg';
+    var img_src = '/imgs/horse-anatomy.jpg';
+    var url = this.location;
+    console.log(url);
+
     var imageMarker = $("#element").imageMarker({
         src: img_src,
         drag_disabled: false
@@ -274,9 +278,11 @@ $(function () {
     });
 
     $('#save').click(function () {
+        var theBilan = $("#input-consultation-id");
         $(imageMarker).trigger('get_markers', function (data) {
-            window.localStorage.markers = JSON.stringify(data);
-            bind_marker_tofield(data);
+            window.sessionStorage.markers = JSON.stringify(data);
+            theBilan.prop("value", JSON.stringify(data));
+            // bind_marker_tofield(data);
             alert("Bilan sauvegardé n'oubliez pas d'enregister la consultation");
         });
     });
@@ -286,13 +292,12 @@ $(function () {
     if ($("#input-consultation-id").length) {
         var markersBilan = $("#input-consultation-id").val();
         // console.log('from bdd ', markersBilan);
+    } else {
+        // ou depuis le local storage si création 
+        var markersBilan = sessionStorage.getItem('markers');
+        // console.log("from sessionStorage ", markersBilan);
     }
-    /*
-        else {
-            // ou depuis le local storage si création 
-            var markersBilan = localStorage.getItem('markers');
-            // console.log("from localstorage ", markersBilan);
-        }*/
+
     if (markersBilan) {
         JSON.parse(markersBilan).map(function (marker) {
             $(imageMarker).trigger('add_marker', marker);
@@ -346,10 +351,11 @@ $(function () {
      * affiche convertie une liste Json en chaine de charachtere dans la 
      * valeur d'un input caché 
      */
-    function bind_marker_tofield(tab) {
+    function bind_marker_tofield(bilan) {
         // un champs cache affin de récuprer les notes du bilan
-        $('#input-consultation-bilan').val(JSON.stringify(tab));
-        //  console.log(tab);
+        $('#input-consultation-bilan').val(JSON.stringify(bilan));
+        $('#input-consultation-bilan')
+        console.log($('#input-consultation-bilan').val());
     }
 
 
