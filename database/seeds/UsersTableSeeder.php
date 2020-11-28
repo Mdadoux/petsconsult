@@ -12,6 +12,6 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         //utilisation des factory pour creerles enregistrements des patients
-        factory('App\Animal', 8)->create();
+        factory('App\User', 1)->create();
     }
 }

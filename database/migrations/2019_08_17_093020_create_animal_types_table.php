@@ -16,7 +16,8 @@ class CreateAnimalTypesTable extends Migration
         Schema::create('animal_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('designation');
-            $table->bigInteger('animal_id')->nullable();
+            //$table->bigInteger('animal_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }

@@ -29,4 +29,10 @@ class Animal extends Model
         // renseigner de manière explicite la clès étrangère qui permet de lier la table animal à animal type
         return $this->belongsTo('App\Animal_type', 'animal_types_id');
     }
+
+    public function user()
+    {
+
+        return $this->belongsTo(User::class);
+    }
 }

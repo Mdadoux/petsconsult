@@ -7,7 +7,7 @@
                 <div class="page-title-subheading">
                      <h3>Patient</h3>                
                     {{$patient->nom}}
-                    <p>Paient n° : <strong> P-00-{{$patient->id}} </strong> </p>
+                    <p>Paient n° : <strong> P-00-{{$patient->id}} </strong></p>
                 </div>
                 <div class="page-btn-action mb-4 w-25 ml-auto text-right">
                     <a href="#" class="btn btn-primary btn-icon-split patient-edit" data-toggle="modal" data-idpatient="{{$patient->id}}" data-target="#add-Modal">
@@ -42,7 +42,7 @@
                                 <span>{{$patient->animal_type->designation}}</span>
                                 @endif                               
                             </div>
-                            {{-- <div class="speciality">Translator. Event Planner. Writer. Composer. Voice actor.</div> --}}
+                            {{-- <div class="speciality">Translator. Event Planner. Writer. Composer. Voice actor.</div> 
                             <div class="d-flex flex-column mt-5">
                                 <div class="profile-button-actions my-7">
                                         <a href="{{route('consultations.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" data-idpatient="{{$patient->id}}">
@@ -52,6 +52,7 @@
                                 </div>
                                 <div class="profile-link-actions"></div>
                             </div>
+                            --}}
                         </div>                       
                 </div>
                 <div class="col-sm-4 col-md-4">
@@ -129,6 +130,9 @@
                                 </ul>
                                 
                             </div>
+                            @else
+                            <div class="alert alert-warning" role="alert"> Attention ce patient semble ne pas être lié à un propriétaire !</div>
+
                         @endif
                        
                     </div>

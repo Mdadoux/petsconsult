@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Animal;
 use App\Animal_type;
 use App\Proprietaire;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 class AnimalsController extends Controller
@@ -17,9 +19,18 @@ class AnimalsController extends Controller
      */
     public function index()
     {
+
+        // recuperer l'utilisateur
+        $user = Auth::user()->id;
+
+        dump($user);
+        exit;
+
+
         //recuperer les enregistrement depuis le model 
         //eagger loading sur la classe Proprietaire
         $patients = Animal::with(['proprietaire', 'animal_type'])->get();
+        // $this->authorize('view', $patients);
         $proprietaires = Proprietaire::all();
         $animal_types = Animal_type::all();
 
@@ -106,8 +117,11 @@ class AnimalsController extends Controller
      */
     public function show($id)
     {
-        //afficher le details d'un patien (animal)
+        //afficher le details d'un patien (animal)    
+
         $patient = Animal::with(['proprietaire', 'animal_type', 'consultations'])->find($id);
+        $this->authorize('view', $patient);
+
         $animal_types = Animal_type::all();
         $proprietaires = Proprietaire::all();
         return view('pages.patients.patient-single', [

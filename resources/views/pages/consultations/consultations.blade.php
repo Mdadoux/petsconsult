@@ -1,9 +1,7 @@
 <?php use App\Http\Controllers\ConsultationsController; ?> 
 <!-- /*Importer le controller pour utiliser certainer methide directement */ -->
 @extends('layouts.template')
-
-@section('title','Dashboard')
-    
+@section('title','Dashboard')    
 @section('content')
 <div class="container-fluid">
 
@@ -23,12 +21,12 @@
             <h6 class="m-0 font-weight-bold text-primary">{{__('Liste des consultations')}}</h6>
           </div>
           <div class="card-body">
-            <div class="{{--table-responsive--}}">
-   
+            <div class="{{--table-responsive--}}">   
             @if(!empty($consultations_list))
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered dataTable-consultations" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
+                  <th>{{__('#id')}}</th>
                     <th>{{__('Intitule')}}</th>
                     <th>{{__('Propriétaire')}}</th>
                     <th>{{__('Patient')}}</th>
@@ -56,15 +54,18 @@
                   @foreach ($consultations_list as $consultation)   
                   {{-- Assiger un proprietaire grace à la methoge getProprietaireById() --}}       
 
-                  @php $animalProp=ConsultationsController::getProprietaireById($consultation->animal->proprietaire_id) @endphp
+                  @php $animalProp=ConsultationsController::getProprietaireById($consultation->animal['proprietaire_id']) @endphp
                   <tr>
+                    <td>
+                      {{$consultation->id}}      
+                    </td>
                       <td>
                         <a href="consultations/{{$consultation->id}}">{{$consultation->titre}}</a>
                       </td>
                       <td>
                             @if(!empty($animalProp->nom)) {{$animalProp->nom}} {{$animalProp->prenom}} @else <span class="badge badge-warning">{{__("Non communiqué")}}</span> @endif
                       </td>
-                      <td>{{$consultation->animal['nom']}}</td>
+                      <td><a href="patients/{{$consultation->animal['id']}}">{{$consultation->animal['nom']}}</a></td>
                       <td>{{$consultation->created_at->format('j F , Y')}}</td>
                       <td>
                          <div class="action-wrapper">
@@ -87,9 +88,7 @@
                          </div>
 
                       </td>
-                      {{-- 
-                        <td>$320,800</td>
-                        --}}
+                     
                     </tr>
                     @endforeach
                   

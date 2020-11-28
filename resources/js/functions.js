@@ -50,6 +50,7 @@ $(document).ready(function () {
     });
 
     set_couleur_to_proprietaire();
+    // add_new_item_to_storage_colors();
 
 });
 
@@ -86,15 +87,12 @@ function open_proprietaire_side_bar(idProprietaire, eddite = true) {
 }
 
 /**
- * Attribuer une couleur à un proprietaire 
+ * Creer un tableau contenant une liste de couleurs depuis la liste des proprietaires présent dans le DOM 
  */
-function set_couleur_to_proprietaire() {
-    var ownersColors = {};
-    window.localStorage.setItem('owners', JSON.stringify(ownersColors));
-    console.log(ownersColors);
-
+function generate_storage_colors_from_proprietaires() {
+    var ownersColors = [];
+    var dbUserColors = window.localStorage;
     var $listeProp = $('.prop-item');
-
     $listeProp.each(function (i) {
         var name = $(this).find('.prop-initials-container').text(),
             id = $(this).find('.show-owner-details').data('propid');
@@ -107,12 +105,48 @@ function set_couleur_to_proprietaire() {
         ownersColors[i] = item;
 
     })
-    console.log(ownersColors);
-    $listeProp.each(function (i) {
-        var randomColor = Math.floor(Math.random() * 16777215).toString(16);
-        $(this).find('.prop-initials-container').css({
-            background: "#" + randomColor
-        });
+    // sauvegarder dans le localstorage
+    dbUserColors.setItem('owners', JSON.stringify(ownersColors));
+
+}
+/**
+ * Ajoute une nouvelle couleurs dans le localstorage 'owener' : si l'id du propriétaire n'est trouvé dans le
+ */
+/*
+function add_new_item_to_storage_colors() {
+   // const item = { id: 14, letter: "RF", color: "red" };
+    const db = localStorage.getItem("owners");
+    const tabl = JSON.parse(db);
+    // on 
+    const founded = tabl.findIndex(function (elem) {
+        return (elem.id === item.id);
     })
 
+    if (founded < 0) {
+        tabl.push(item);
+    }
+    localStorage.setItem("owners", JSON.stringify(tabl));
+
+}
+*/
+/**
+ * Fonction qui ne renvoire rien: attribue une couleur apartir de local sorage
+ */
+
+function set_couleur_to_proprietaire() {
+    var db = JSON.parse(localStorage.getItem('owners'));
+    var $items = $('.prop-item');
+    if ($items.length != db.length) {
+        generate_storage_colors_from_proprietaires();
+        set_couleur_to_proprietaire();
+    } else {
+        $items.each(function (index, elem) {
+            var id = $(this).find('.show-owner-details').attr('data-propid');
+            if (db[index] !== undefined && db[index].id == id) {
+                $(this).find('.prop-initials-container').css({
+                    background: db[index].color
+                });
+            }
+        })
+    }
 }

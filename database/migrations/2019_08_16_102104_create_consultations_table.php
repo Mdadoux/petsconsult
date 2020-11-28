@@ -15,6 +15,7 @@ class CreateConsultationsTable extends Migration
     {
         Schema::create('consultations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->string('titre')->nullable();
             $table->text('motif_consultation')->nullable();
             $table->text('antecedents')->nullable();

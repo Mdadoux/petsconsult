@@ -14,7 +14,7 @@ $factory->define(Proprietaire::class, function (Faker $faker) {
         'code_postal' => $faker->postcode,
         'ville' => $faker->city,
         'telephone' => $faker->phoneNumber,
-        'animal_id' => 0,
+        'user_id' => $faker->numberBetween(1, 3),
         'created_at' => now(),
         'updated_at' => now()
         //

@@ -50,7 +50,7 @@
                            
                         <tr>
                           <td>{{$patient->id}}</td>
-                          <td>{{$patient->nom}}</td>
+                          <td><a href="patients/{{$patient->id}}">{{$patient->nom}}</a></td>
                           <td>
                             @if ($patient->proprietaire['nom'])
                             <a  href="#" class="patient-prop-container">

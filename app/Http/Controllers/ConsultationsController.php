@@ -56,7 +56,7 @@ class ConsultationsController extends Controller
 
 
         $consultations_list = Consultation::all();
-        $consultations_list->load('animal');      
+        $consultations_list->load('animal');
         return view('pages.consultations.consultations', [
             "consultations_list" => $consultations_list
         ]);
@@ -76,16 +76,16 @@ class ConsultationsController extends Controller
         $prop = Proprietaire::all();
         //afficher les types d'animaux
         $animals_type = Animal_type::all();
-        $isConsultation = !empty($consultation->id) ? true : false;  /*utile pour savoir si on édite ou pas une consulation */      
-       return view('pages.consultations.consultation-create-eddit',[
-        "proprietaires"          => $prop,
-        "types_animaux"          => $animals_type,
-        "consultation"           => $consultation,
-        "isEditConsultation"     => $isConsultation
-       ]);
+        $isConsultation = !empty($consultation->id) ? true : false;  /*utile pour savoir si on édite ou pas une consulation */
+        return view('pages.consultations.consultation-create-eddit', [
+            "proprietaires"          => $prop,
+            "types_animaux"          => $animals_type,
+            "consultation"           => $consultation,
+            "isEditConsultation"     => $isConsultation
+        ]);
     }
 
-     /**
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -94,9 +94,9 @@ class ConsultationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-          // Consultation::create();
+        // Consultation::create();
 
-          $rules =  [
+        $rules =  [
             'titre'                 => 'string',
             'motif_consultation'    => 'string',
             'antecedants'           => 'string',
@@ -124,12 +124,12 @@ class ConsultationsController extends Controller
                 'discipline' => 'string'
 
             ];
-          
-         //   dump($request->input('input-consultation-id'));exit;
-            
+
+            //   dump($request->input('input-consultation-id'));exit;
+
             $this->validate($request, $rules_patient);
             // mise à jour du patien dans la table 
-            $patient = Animal::find($request->input('patient-id'));           
+            $patient = Animal::find($request->input('patient-id'));
             $patient->nom = $request->input('nom');
             $patient->sexe = $request->input('animal-sexe');
             $patient->age = $request->input('animal-age');
@@ -138,7 +138,7 @@ class ConsultationsController extends Controller
             $patient->race = $request->input('animal-race');
             $patient->discipline = $request->input('animal-discipline');
             #enregister le nouveau cheval dans la table animal
-            $patient->save($request->all());           
+            $patient->save($request->all());
             $consultation->animal_id = $request->input('patient-id');
             #recuperer l'id pour l'afftecter au champ animal_id de la consultation
         }
@@ -163,11 +163,12 @@ class ConsultationsController extends Controller
             'motif_consultation'    => 'string',
             'antecedants'           => 'string',
             'conseils'              => 'string',
-            'bilan'                 => 'string'
+            'bilan'                 => 'string',
+            'user_id'               => ''
 
         ];
 
-        //dd($request->all());
+        //  dd(auth()->user()->id);
         $this->validate($request, $rules);
 
         $consultation = new Consultation;
@@ -176,6 +177,7 @@ class ConsultationsController extends Controller
         $consultation->antecedents = $request->input('input-antecedent-consultation');
         $consultation->conseils = $request->input('consultation-conseils');
         $consultation->bilan = $request->input('consultation-bilan');
+        $consultation->user_id = auth()->user()->id;
         if (empty($request->input('patient-id'))) {
             # si le nom du cheval est renseigné
             $rules_patient =  [
@@ -197,6 +199,7 @@ class ConsultationsController extends Controller
             $patient->proprietaire_id = $request->input('animal-proprietaire');
             $patient->race = $request->input('animal-race');
             $patient->discipline = $request->input('animal-discipline');
+            $patient->user_id = auth()->user()->id;
             #enregister le nouveau cheval dans la table animal
             $patient->save($request->all());
             // dd($patient->id);
@@ -222,15 +225,20 @@ class ConsultationsController extends Controller
 
         // eager loading thanks to with methode
         $consultation = Consultation::with(['animal'])->find($consultation->id);
-        $id_proprietaire = $consultation->animal->proprietaire_id;
-        if ($id_proprietaire) {
-            # code...
+        if (!empty($consultation->animal)) {
+            $id_proprietaire = $consultation->animal->proprietaire_id;
             $proprietaire = $this::getProprietaireById($id_proprietaire);
+        } else {
+            // si aucune liaison avec un animal n'a pas été trouvé, c'est le patient à était supprimé
+            return redirect('/consultations')->with('error', 'La consultation n° ' . $consultation->id . 'ne peut pas être afficher car n\'pas de patient ou le patient a été supprimé !');
         }
+
+
 
         return view('pages.consultations.consultation-single', [
             "consultation" => $consultation,
-            "proprietaire" => isset($proprietaire) ? $proprietaire : " "
+            "proprietaire" => isset($proprietaire) ? $proprietaire : " ",
+            "isPatient" => isset($isPatient) ? $isPatient : true
         ]);
     }
 

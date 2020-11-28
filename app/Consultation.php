@@ -14,4 +14,16 @@ class Consultation extends Model
 
         return $this->belongsTo('App\Animal');
     }
+
+    public function proprietaire()
+    {
+
+        return $this->belongsTo('App\Proprietaire');
+    }
+
+    public function user()
+    {
+
+        return $this->belongsTo(User::class);
+    }
 }

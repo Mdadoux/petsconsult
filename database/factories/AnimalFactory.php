@@ -3,6 +3,8 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Animal;
+use App\Animal_type;
+use App\Proprietaire;
 use Faker\Generator as Faker;
 
 $factory->define(Animal::class, function (Faker $faker) {
@@ -14,7 +16,8 @@ $factory->define(Animal::class, function (Faker $faker) {
         'age' => 0,
         'discipline' => 'Non communiqué',
         'visuel' => '',
-        'proprietaire_id' => 0,
-        'animal_types_id' => 0
+        'proprietaire_id' => $faker->numberBetween(1, 5),
+        'animal_types_id' => $faker->numberBetween(1, 2),
+        'user_id' => $faker->numberBetween(1, 3)
     ];
 });

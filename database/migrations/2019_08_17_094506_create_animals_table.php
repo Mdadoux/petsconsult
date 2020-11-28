@@ -23,6 +23,7 @@ class CreateAnimalsTable extends Migration
             $table->string('visuel')->nullable();
             $table->unsignedBigInteger('proprietaire_id')->default(0);
             $table->unsignedBigInteger('animal_types_id')->default(0);
+            $table->unsignedBigInteger('user_id');
             //$table->unsignedBigInteger('consultation_id')->default(0);
             $table->timestamps();
         });

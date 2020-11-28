@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
             [
 
                 UsersTableSeeder::class,
-                ProprietairesTableSeeder::class
+                ProprietairesTableSeeder::class,
+                Animal_typesTbaleSeeder::class,
+                AnimalsTableSeeder::class
             ]
         );
     }

@@ -22,7 +22,7 @@ class CreateProprietairesTable extends Migration
             $table->string('ville')->nullable();
             $table->string('telephone')->nullable();
             $table->string('email')->nullable();
-            //$table->bigInteger('animal_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }

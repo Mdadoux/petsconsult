@@ -5,18 +5,17 @@
       {{--  le'url de modification de formulaire si pour une modification' --}}
         <input type="hidden" value="{{route('patients.update','test')}}" name="form-update-action" id="form-update-action">
         <li class="nav-item">
-          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Infos</a>
+          <a class="nav-link active" id="modal-home-tab" data-toggle="tab" href="#modal-home" role="tab" aria-controls="modal-home" aria-selected="true">Infos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Photo</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+          <a class="nav-link" id="modal-contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
         </li>
-      </ul>
-      
-      <div class="tab-content" id="myTabContent">        
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+    </ul>      
+    <div class="tab-content" id="myTabContent">        
+            <div class="tab-pane fade show active" id="modal-home" role="tabpanel" aria-labelledby="modal-home-tab">
               <input type="hidden" id="animal-id" value="" name="animal-id">
                 <div class="tab-content-inner py-4">
                 <div class="form-row">
@@ -92,7 +91,7 @@
               </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="modal-contact-tab">...</div>
       </div>
 
       <button type="submit" name="addpatient" id="addpatient" style="display:none">Ajouter</button>

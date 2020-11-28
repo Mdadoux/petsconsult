@@ -1,8 +1,8 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function () {
-  $('#dataTable').DataTable(
+  $('.dataTable-consultations').DataTable(
     {
-      "order": [[3, "desc"]] // odonner les enregistrement par date croissante
+      "order": [[0, "desc"]] // odonner les enregistrement par date croissante
     }
   );
 

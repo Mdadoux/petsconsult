@@ -16,8 +16,16 @@
                         <h4>Consultations</h4>
                         <a href="{{url('consultations')}}">Voir toute les consultations</a>
                 </div>
-                <div class="col-md-4"></div>
-                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                        <h4>Patiens</h4> 
+                        <a href="{{url('patients')}}">Voir toute les consultations</a>      
+                       
+                </div>
+                <div class="col-md-4">
+                     <h4>Proprietaires</h4> 
+                     <a href="{{url('proprietaires')}}">Voir toute les consultations</a>
+                        
+                </div>
                 <div class="col-md-4"></div>
         </div>
 </div>

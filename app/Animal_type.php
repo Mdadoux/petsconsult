@@ -13,4 +13,9 @@ class Animal_type extends Model
 
         return $this->hasMany('App\Animal');
     }
+    public function user()
+    {
+
+        return $this->belongsTo(User::class);
+    }
 }
