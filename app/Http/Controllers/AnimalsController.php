@@ -21,20 +21,12 @@ class AnimalsController extends Controller
     {
 
         // recuperer l'utilisateur
-        $user = Auth::user()->id;
-
-        dump($user);
-        exit;
-
-
+        $user = Auth::user();
         //recuperer les enregistrement depuis le model 
-        //eagger loading sur la classe Proprietaire
-        $patients = Animal::with(['proprietaire', 'animal_type'])->get();
-        // $this->authorize('view', $patients);
-        $proprietaires = Proprietaire::all();
+        //eagger loading sur la classe Proprietaire et animal selon utilisateur
+        $patients = Animal::with(['proprietaire', 'animal_type'])->where('user_id', '=', $user->id)->get();
+        $proprietaires = Proprietaire::where('user_id', '=', $user->id)->get();
         $animal_types = Animal_type::all();
-
-
         return view('pages.patients.liste-patients', [
             "patients_list" => $patients,
             "proprietaires" => $proprietaires,
@@ -71,6 +63,7 @@ class AnimalsController extends Controller
 
         ];
 
+        $user = Auth::user();
         $this->validate($request, $rules);
         // creation du patient animal
         $patient = new Animal;
@@ -88,6 +81,7 @@ class AnimalsController extends Controller
         $patient->proprietaire_id = $request->input('animal-proprietaire');
         $patient->race = $request->input('animal-race');
         $patient->discipline = $request->input('animal-discipline');
+        $patient->user_id = $user->id;
         $patient->save();
         $id_patient = $patient->id;
         // dd($id_patient);
@@ -97,7 +91,7 @@ class AnimalsController extends Controller
             //  $fileNameWithExt = $request->file('animal-photo')->getClientOriginalName();
             // $filename = pathinfo($fileNameWithExt, PATHINFO_EXTENSION);
             $extension = $request->file('animal-photo')->getClientOriginalExtension();
-            $fileNameToStore = 'photo-p-' . $id_patient . '.' . $extension;
+            $fileNameToStore = 'photo-p-' . $id_patient . '_user_' . $user->id . '.' . $extension;
             $patient->visuel = $fileNameToStore;
             $request->file('animal-photo')->storeAs('public/uploads', $fileNameToStore);
             //création d'une image plus petite à partir de l'image par défaut

@@ -57,7 +57,8 @@ class ConsultationsController extends Controller
 
         $currentuser = Auth::user()->id;
         $consultations_list = Consultation::where('user_id', '=', $currentuser)->get();
-
+        dd($_GET);
+        dd($consultations_list[0]->user_id);
         $consultations_list->load('animal');
         return view('pages.consultations.consultations', [
             "consultations_list" => $consultations_list

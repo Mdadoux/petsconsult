@@ -30,7 +30,7 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-          <a class="nav-link collapsed" href="{{url('/consultations')}}">
+          <a class="nav-link collapsed" href="{{url('/user_'.Auth::user()->id.'/consultations')}}">
               <i class="fas fa-fw fa-cog"></i>
               <span>Consultaions</span>
           </a>

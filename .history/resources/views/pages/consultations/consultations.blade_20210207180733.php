@@ -90,7 +90,7 @@ use App\Http\Controllers\ConsultationsController; ?>
                                         <i class="fas fa-trash"></i>
                                     </a>
 
-                                    <a href="{{route('consultations.edit',$consultation->id)}}"
+                                    <a href="{{route('consultations.edit',['Auth::user()->id','$consultation->id'])}}"
                                         class="btn btn-primary btn-circle btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>

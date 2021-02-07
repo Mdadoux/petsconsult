@@ -79,7 +79,7 @@ use App\Http\Controllers\ConsultationsController; ?>
                             <td>{{$consultation->created_at->format('j F , Y')}}</td>
                             <td>
                                 <div class="action-wrapper">
-                                    <a href="{{route('consultations.show',$consultation->id)}}"
+                                    <a href="{{route('consultations.show','$consultation->id')}}"
                                         class="btn btn-default btn-circle btn-sm">
                                         <i class="fas fa-eye"></i>
                                     </a>
@@ -90,7 +90,7 @@ use App\Http\Controllers\ConsultationsController; ?>
                                         <i class="fas fa-trash"></i>
                                     </a>
 
-                                    <a href="{{route('consultations.edit',$consultation->id)}}"
+                                    <a href="{{route('consultations.edit',['Auth::user()->id','$consultation->id'])}}"
                                         class="btn btn-primary btn-circle btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
